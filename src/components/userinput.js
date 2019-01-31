@@ -159,7 +159,6 @@ class Userinput extends Component {
     updateDimensions() {
         var width = this.searchIconNode.clientWidth + this.searchInputNode.clientWidth;
         this.setState({searchInputWidth: width});
-        console.log(this.state.resultsArray);
     }
 
     handleToggleItinerary() {
@@ -2078,7 +2077,7 @@ class Userinput extends Component {
                   </AppBar>
                       :
                   <div className="row topNavBar fixedNav">
-                      <div className="col-md-2">
+                      <div ref={node => this.logoNode = node} id="logo" className="col-md-2">
                           <span className="nav-bar-logo">Blue </span>
                           <span className="nav-bar-logo2">Planit</span>
                           {locationErrorMessage}
@@ -2176,7 +2175,7 @@ class Userinput extends Component {
                       </div>
                   </div>
                   <div className="row row-height wrapper eventsCont apidata">
-                      <main className="col-md-5 scroll-column">
+                      <main className="col-md-4 scroll-column">
                           <div>
                               {this.state.loading === true ?
                                   ' ' :
@@ -2203,7 +2202,7 @@ class Userinput extends Component {
                           </div> : false
                       }
                       <div className="col-md-4 scroll-column">
-                          <div>
+                          <div className="results-column">
                                     {/* All data gets shown here (api data, a nd user added data) */}
                                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a onClick={this.handleTabState} className={eventsLinkClass.join(' ')}
@@ -2265,7 +2264,7 @@ class Userinput extends Component {
                                 {/* { <GoogleApiWrapper show={this.state.mapOrResultsState} results={this.state.resultsArray}
                                             center={this.state.center} showMarkerOnHoverObj={this.state.mapItinCardHoverStates}/> } */}
                             </div>
-                            <div id="mapBoxID" className="col-md-3 scroll-column">
+                            <div id="mapBoxID" className="col-md-4 scroll-column">
                                   <MapBoxComponent show={this.state.mapOrResultsState}
                                                    results={this.state.resultsArray}
                                                    center={this.state.center}

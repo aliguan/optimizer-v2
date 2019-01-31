@@ -24,10 +24,11 @@ const styles = theme => ({
     }
 });
 
-class ClickAway extends React.Component {
+class DistanceFilter extends React.Component {
 
     constructor(props) {
         super(props);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
     }
 
     state = {
@@ -53,6 +54,10 @@ class ClickAway extends React.Component {
         })
     };
 
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
 
     render() {
         const { classes } = this.props;
@@ -69,20 +74,19 @@ class ClickAway extends React.Component {
             this.state.value = this.state.maxDistanceValue;
             this.state.prevMaxDistanceValue = this.state.maxDistanceValue;                     
         }
-
         return (
             <Dialog
-                open={this.props.openDistance}
+                open={this.props.open}
                 onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <div>
+                        <div ref={this.setWrapperRef}>
                             <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
                             <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
-                            <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
+                            <Button className={classes.button} onClick={this.handleApply}>
                                 Apply
                             </Button>
                         </div>
@@ -98,8 +102,8 @@ class ClickAway extends React.Component {
     }
 }
 
-ClickAway.propTypes = {
+DistanceFilter.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ClickAway);
+export default withStyles(styles)(DistanceFilter);

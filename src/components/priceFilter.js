@@ -156,10 +156,10 @@ class PriceSlider extends React.Component {
                                 <span className={classes.span}>${this.state.value[1]}</span>
                             </div>
                             <div className={classes.actions}>
-                                <Button href="#text-buttons" className={classes.button} onClick={this.handleClear}>
+                                <Button    className={classes.button} onClick={this.handleClear}>
                                     Clear
                                 </Button>
-                                <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
+                                <Button    className={classes.button} onClick={this.handleApply}>
                                     Apply
                                 </Button>
                             </div>

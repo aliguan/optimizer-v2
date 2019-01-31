@@ -678,9 +678,6 @@ button.close {
     opacity: .2;
 }
 
-
-
-
 .footer {
     border: 10px;
     font-size: 12px;
@@ -731,9 +728,21 @@ button.close {
   grid-gap: 20px;
 }
 
+.filters-div {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+    padding-left: 150px;
+}
+
 .filters-div > button {
-    min-width: 100px;
-    max-width: 120px;
+    height: 36px!important;
+    text-transform: none;
+    font-weight: 300!important;
+    margin-right: 18px!important;
+    color: #6c6c6cf0 !important;
+    border: 1px solid #ececec!important;
+
 }
 
 
@@ -756,9 +765,14 @@ button.close {
     margin: 0!important;
 }
 
+.results-column {
+    padding-top: 1em;
+}
+
 /* itinDiv is temporary*/
 .itinDiv {
     position:relative;
+    padding: 1em;
 }
 
 .itinHeaderContainer{
@@ -1082,14 +1096,12 @@ button.close {
 }
 
 .fixedBanner {
-    height: 50px !important;
     text-align: left;
     position: relative;
     z-index: 1000;
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #ececec;
-    padding: 0.4em 1.5em;
 }
 
 header {
@@ -1149,6 +1161,14 @@ input:-webkit-autofill:active {
 .nav-bar-logo {
     font-weight: 700;
     font-size: 0.8em;
+}
+
+#logo {
+    max-width: 126px;
+}
+
+#logo span {
+    vertical-align: bottom;
 }
 
 .nav-bar-logo2 {
@@ -1240,7 +1260,7 @@ input:-webkit-autofill:active {
 }
 
 .scroll-column {
-    height: 100%;
+    height: 100%!important;
     overflow-y: scroll;
 }
 

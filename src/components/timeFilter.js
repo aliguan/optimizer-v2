@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CONSTANTS from '../constants';
 import 'rc-slider/assets/index.css';
@@ -53,7 +50,7 @@ const styles = theme => ({
     }
 });
 
-class TimeSlider extends React.Component {
+class TimeFilter extends React.Component {
 
     constructor(props) {
         super(props);
@@ -99,7 +96,7 @@ class TimeSlider extends React.Component {
     onSliderChange = (value) => {
         this.setState({
             value: value,
-        }, this.setTimeRange)
+        }, this.setTimeRange);
     }
 
     setTimeRange = () => {
@@ -204,11 +201,10 @@ class TimeSlider extends React.Component {
             <Dialog
                 open={this.props.open}
                 onClose={this.handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
             >
+                <div>hi</div>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    <DialogContentText>
                         <div ref={this.setWrapperRef}>
                             <Typography className={classes.header}>Time <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
                             <Range allowCross={false}  value={this.state.value} className={classes.slider}
@@ -220,10 +216,10 @@ class TimeSlider extends React.Component {
                             />
 
                             <div className={classes.actions}>
-                                <Button href="#text-buttons" className={classes.button} onClick={this.handleClear}>
+                                <Button className={classes.button} onClick={this.handleClear}>
                                     Clear
                                 </Button>
-                                <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
+                                <Button className={classes.button} onClick={this.handleApply}>
                                     Apply
                                 </Button>
                             </div>
@@ -240,8 +236,8 @@ class TimeSlider extends React.Component {
     }
 }
 
-TimeSlider.propTypes = {
+TimeFilter.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TimeSlider);
+export default withStyles(styles)(TimeFilter);

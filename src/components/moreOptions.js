@@ -115,11 +115,11 @@ class MoreOptions extends Component {
                     </FormControl>
                 </div>
 
-                <Button href="#text-buttons" onClick={this.handleApply}>
+                <Button    onClick={this.handleApply}>
                     Apply
             </Button>
 
-                <Button href="#text-buttons" onClick={this.handleReset}>
+                <Button    onClick={this.handleReset}>
                     Reset
             </Button>
             </div>

@@ -229,7 +229,7 @@ class MealFilter extends React.Component {
                                     />
                                 </FormGroup>
                             </FormControl>
-                            <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
+                            <Button    className={classes.button} onClick={this.handleApply}>
                                 Apply
                             </Button>
                         </div>
