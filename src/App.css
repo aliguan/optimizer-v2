@@ -745,6 +745,35 @@ button.close {
 
 }
 
+.filters > [class*="MuiPaper-elevation"] {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 36px 2px !important;
+}
+
+#time-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 386px;
+}
+#price-filter > [class*="MuiPaper-root"] {
+     position: fixed;
+     top: 60px;
+     left: 101px;
+}
+#meal-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 386px;
+}
+#distance-filter > [class*="MuiPaper-root"] {
+     position: fixed;
+     top: 60px;
+     left: 185px;
+}
+#api-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 291px;
+}
 
 .activeStatebtn {
     background-color: #3f51b5!important;
@@ -1250,9 +1279,6 @@ input:-webkit-autofill:active {
     margin-bottom: 0px!important;
 }
 
-.mapAndResultsDiv {
-
-}
 
 .wrapper {
     display: flex;
@@ -1266,6 +1292,11 @@ input:-webkit-autofill:active {
 
 .row-height {
     height: 100vh;
+}
+
+[class*="MuiBackdrop-root"] {
+    background-color: #ffffff99!important;
+    margin-top: 108px;
 }
 
 .sidebar {

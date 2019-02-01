@@ -25,7 +25,6 @@ const styles = theme => ({
         maxWidth: '320px',
         padding: '1em 2em',
         textAlign: 'left',
-
     },
     slider: {
         zIndex: '9999',
@@ -201,8 +200,9 @@ class TimeFilter extends React.Component {
             <Dialog
                 open={this.props.open}
                 onClose={this.handleClose}
+                id="time-filter"
+                className="filters"
             >
-                <div>hi</div>
                 <DialogContent>
                     <DialogContentText>
                         <div ref={this.setWrapperRef}>

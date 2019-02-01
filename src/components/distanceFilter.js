@@ -80,6 +80,8 @@ class DistanceFilter extends React.Component {
                 onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                className="filters"
+                id="distance-filter"
             >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">

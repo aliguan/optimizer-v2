@@ -142,6 +142,8 @@ class PriceSlider extends React.Component {
                 onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                className="filters"
+                id="price-filter"
             >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">

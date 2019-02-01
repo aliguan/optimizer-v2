@@ -18,7 +18,7 @@ class AllFilters extends React.Component {
         this.handleDistanceFilterDisplay = this.handleDistanceFilterDisplay.bind(this);
         this.handleApiFilterDisplay = this.handleApiFilterDisplay.bind(this);
         this.handleMealFilterDisplay = this.handleMealFilterDisplay.bind(this);
-        this.handleTimeFilterDisplay = this.handleDistanceFilterDisplay.bind(this);
+        this.handleTimeFilterDisplay = this.handleTimeFilterDisplay.bind(this);
     }
 
     state = {
