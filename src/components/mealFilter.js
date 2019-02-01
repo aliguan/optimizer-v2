@@ -57,7 +57,7 @@ class MealFilter extends React.Component {
      */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ open: false });
+            this.props.close();
         }
     }
 
@@ -179,69 +179,71 @@ class MealFilter extends React.Component {
                 className="filters"
                 id="meal-filter"
             >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <div ref={this.setWrapperRef}>
-                            <Typography id="label">Include restaurants for: </Typography>
-                            <FormControl component="fieldset">
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.all}
-                                                onChange={this.handleAllChange('all')}
-                                                value="all"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Select All"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.breakfast}
-                                                onChange={this.handleChange('breakfast')}
-                                                value="breakfast"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Breakfast"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.lunch}
-                                                onChange={this.handleChange('lunch')}
-                                                value="lunch"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Lunch"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.dinner}
-                                                onChange={this.handleChange('dinner')}
-                                                value="dinner"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Dinner"
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                            <Button    className={classes.button} onClick={this.handleApply}>
-                                Apply
-                            </Button>
-                        </div>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            <div>
+                                <Typography id="label">Include restaurants for: </Typography>
+                                <FormControl component="fieldset">
+                                    <FormGroup>
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.all}
+                                                    onChange={this.handleAllChange('all')}
+                                                    value="all"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Select All"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.breakfast}
+                                                    onChange={this.handleChange('breakfast')}
+                                                    value="breakfast"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Breakfast"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.lunch}
+                                                    onChange={this.handleChange('lunch')}
+                                                    value="lunch"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Lunch"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.dinner}
+                                                    onChange={this.handleChange('dinner')}
+                                                    value="dinner"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Dinner"
+                                        />
+                                    </FormGroup>
+                                </FormControl>
+                                <Button    className={classes.button} onClick={this.handleApply}>
+                                    Apply
+                                </Button>
+                            </div>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.close} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </div>
             </Dialog>
         );
     }

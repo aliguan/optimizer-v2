@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import grey from '@material-ui/core/colors/grey';
-import globalStyles from '../App.css';
-import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -58,7 +53,15 @@ class ClickAway extends React.Component {
      */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ open: false });
+            this.props.close();
+            this.setState({
+                open: false,
+                eb: this.state.prevEb,
+                gp: this.state.prevGp,
+                mu: this.state.prevMu,
+                sg: this.state.prevSg,
+                all: this.state.prevAll,
+            });
         }
     }
 
@@ -83,19 +86,6 @@ class ClickAway extends React.Component {
         objectState[filter_state] = !currentState;
         this.setState(objectState);
     };
-
-    handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ 
-                open: false,
-                eb: this.state.prevEb,
-                gp: this.state.prevGp,
-                mu: this.state.prevMu,
-                sg: this.state.prevSg,
-                all: this.state.prevAll,
-            });
-        }
-    }
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked }, function () {
@@ -194,80 +184,82 @@ class ClickAway extends React.Component {
                 className="filters"
                 id="api-filter"
             >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <div ref={this.setWrapperRef}>
-                            <Typography id="label">Include events & places from: </Typography>
-                            <FormControl component="fieldset">
-                                <FormGroup>
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.all}
-                                                onChange={this.handleAllChange('all')}
-                                                value="all"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Select All"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.eb}
-                                                onChange={this.handleChange('eb')}
-                                                value="eb"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Eventbrite"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.mu}
-                                                onChange={this.handleChange('mu')}
-                                                value="mu"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Meetup"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.gp}
-                                                onChange={this.handleChange('gp')}
-                                                value="gp"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="Google Places"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Switch
-                                                checked={this.state.sg}
-                                                onChange={this.handleChange('sg')}
-                                                value="sg"
-                                                color="primary"
-                                            />
-                                        }
-                                        label="SeatGeek"
-                                    />
-                                </FormGroup>
-                            </FormControl>
-                            <Button    className={classes.button} onClick={this.handleApply}>
-                                Apply
-                            </Button>
-                        </div>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            <div>
+                                <Typography id="label">Include events & places from: </Typography>
+                                <FormControl component="fieldset">
+                                    <FormGroup>
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.all}
+                                                    onChange={this.handleAllChange('all')}
+                                                    value="all"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Select All"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.eb}
+                                                    onChange={this.handleChange('eb')}
+                                                    value="eb"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Eventbrite"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.mu}
+                                                    onChange={this.handleChange('mu')}
+                                                    value="mu"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Meetup"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.gp}
+                                                    onChange={this.handleChange('gp')}
+                                                    value="gp"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Google Places"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.sg}
+                                                    onChange={this.handleChange('sg')}
+                                                    value="sg"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="SeatGeek"
+                                        />
+                                    </FormGroup>
+                                </FormControl>
+                                <Button    className={classes.button} onClick={this.handleApply}>
+                                    Apply
+                                </Button>
+                            </div>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.close} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </div>
             </Dialog>
         );
     }

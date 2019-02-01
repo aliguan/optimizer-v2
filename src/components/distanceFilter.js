@@ -29,6 +29,7 @@ class DistanceFilter extends React.Component {
     constructor(props) {
         super(props);
         this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     state = {
@@ -39,6 +40,24 @@ class DistanceFilter extends React.Component {
         doApiCallState: true,
         prevDoApiCallState: true,
     };
+
+    handleClickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.close();
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
 
     handleChange = (event, value) => {
         this.setState({ value });
@@ -53,11 +72,6 @@ class DistanceFilter extends React.Component {
             prevRadius: this.state.value,
         })
     };
-
-    setWrapperRef(node) {
-        this.wrapperRef = node;
-    }
-
 
     render() {
         const { classes } = this.props;
@@ -83,9 +97,10 @@ class DistanceFilter extends React.Component {
                 className="filters"
                 id="distance-filter"
             >
-                <DialogContent>
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <div ref={this.setWrapperRef}>
+                        <div>
                             <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
                             <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
                             <Button className={classes.button} onClick={this.handleApply}>
@@ -94,11 +109,12 @@ class DistanceFilter extends React.Component {
                         </div>
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
+                    <DialogActions>
+                        <Button onClick={this.props.close} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </div>
             </Dialog>
         );
     }

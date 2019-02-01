@@ -772,7 +772,7 @@ button.close {
 #api-filter > [class*="MuiPaper-root"] {
     position: fixed;
     top: 60px;
-    left: 291px;
+left: 291px;
 }
 
 .activeStatebtn {

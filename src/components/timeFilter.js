@@ -85,10 +85,7 @@ class TimeFilter extends React.Component {
      */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ 
-                open: false, 
-                value: [this.state.prevMin, this.state.prevMax],
-            },this.setTimeRange);
+            this.props.close();
         }
     }
 
@@ -203,9 +200,10 @@ class TimeFilter extends React.Component {
                 id="time-filter"
                 className="filters"
             >
+             <div ref={this.setWrapperRef}>
                 <DialogContent>
                     <DialogContentText>
-                        <div ref={this.setWrapperRef}>
+                        <div>
                             <Typography className={classes.header}>Time <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
                             <Range allowCross={false}  value={this.state.value} className={classes.slider}
                                 defaultValue={[CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX]}
@@ -231,6 +229,7 @@ class TimeFilter extends React.Component {
                         Close
                     </Button>
                 </DialogActions>
+            </div>
             </Dialog>
         );
     }

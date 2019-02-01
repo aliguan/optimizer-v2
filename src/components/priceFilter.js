@@ -54,7 +54,7 @@ class PriceSlider extends React.Component {
         super(props);
 
         this.setWrapperRef = this.setWrapperRef.bind(this);
-        //this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     state = {
@@ -79,17 +79,14 @@ class PriceSlider extends React.Component {
         this.wrapperRef = node;
     }
 
-    // /**
-    //  * Alert if clicked on outside of element
-    //  */
-    // handleClickOutside(event) {
-    //     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-    //         this.setState({
-    //             open: false,
-    //             value: [this.state.prevMin, this.state.prevMax],
-    //         });
-    //     }
-    // }
+    /**
+     * Alert if clicked on outside of element
+     */
+    handleClickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.close();
+        }
+    }
 
     onSliderChange = (value) => {
         this.setState({
@@ -145,34 +142,36 @@ class PriceSlider extends React.Component {
                 className="filters"
                 id="price-filter"
             >
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <div ref={this.setWrapperRef}>
-                            <div className="price-slider">
-                                <span>${this.state.value[0]}</span>
-                                <Range allowCross={false} value={this.state.value} defaultValue={[CONSTANTS.DEFAULT_PRICEFILTER_MIN, CONSTANTS.DEFAULT_PRICEFILTER_MAX]}
-                                    min={CONSTANTS.DEFAULT_PRICEFILTER_MIN} max={CONSTANTS.DEFAULT_PRICEFILTER_MAX}
-                                    step={CONSTANTS.PRICE_FILTER_STEP}
-                                    onChange={this.onSliderChange} tipFormatter={value => `$${value}.00`}
-                                />
-                                <span className={classes.span}>${this.state.value[1]}</span>
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            <div>
+                                <div className="price-slider">
+                                    <span>${this.state.value[0]}</span>
+                                    <Range allowCross={false} value={this.state.value} defaultValue={[CONSTANTS.DEFAULT_PRICEFILTER_MIN, CONSTANTS.DEFAULT_PRICEFILTER_MAX]}
+                                        min={CONSTANTS.DEFAULT_PRICEFILTER_MIN} max={CONSTANTS.DEFAULT_PRICEFILTER_MAX}
+                                        step={CONSTANTS.PRICE_FILTER_STEP}
+                                        onChange={this.onSliderChange} tipFormatter={value => `$${value}.00`}
+                                    />
+                                    <span className={classes.span}>${this.state.value[1]}</span>
+                                </div>
+                                <div className={classes.actions}>
+                                    <Button    className={classes.button} onClick={this.handleClear}>
+                                        Clear
+                                    </Button>
+                                    <Button    className={classes.button} onClick={this.handleApply}>
+                                        Apply
+                                    </Button>
+                                </div>
                             </div>
-                            <div className={classes.actions}>
-                                <Button    className={classes.button} onClick={this.handleClear}>
-                                    Clear
-                                </Button>
-                                <Button    className={classes.button} onClick={this.handleApply}>
-                                    Apply
-                                </Button>
-                            </div>
-                        </div>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.close} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </div>
             </Dialog>
         );
     }
