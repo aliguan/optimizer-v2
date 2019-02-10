@@ -681,16 +681,17 @@ button.close {
 .footer {
     border: 10px;
     font-size: 12px;
-    padding-bottom: 2em;
-    background-color: white;
+    padding: 2em 0;
+    background-color: #0066d2;
+    color: white;
+}
+
+.footer a {
+    color: white;
 }
 
 .toolbar {
     padding: 0px!important;
-}
-
-.apidata {
-    padding-bottom: 2em;
 }
 
 .modal-body {
@@ -772,7 +773,7 @@ button.close {
 #api-filter > [class*="MuiPaper-root"] {
     position: fixed;
     top: 60px;
-left: 291px;
+    left: 291px;
 }
 
 .activeStatebtn {
@@ -1240,22 +1241,13 @@ input:-webkit-autofill:active {
     width: 100%;
     font-size: 12px;
 }
-.footer ul > li:first-child {
-    margin-bottom: 1em;
-}
-.footer-2 li:nth-child(3), .footer-2 li:nth-child(4) {
-    padding-bottom: 10px;
-}
 
 .footer img {
     max-width: 50%;
 }
 
-.yelp-item img {
-    margin-top: 8px;
-    max-width: 42%;
-}
 .hover-item {
+    color: white;
     transition: 500ms;
 }
 .hover-item:hover {
@@ -1326,6 +1318,7 @@ input:-webkit-autofill:active {
 
 #mapBoxID > div {
     width: 100%!important;
+    height: 100%!important;
 }
 
 .mapboxgl-marker {

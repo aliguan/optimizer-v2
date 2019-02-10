@@ -2272,12 +2272,10 @@ class Userinput extends Component {
                                   </MapBoxComponent>
                             </div>
                         </div>
-                    </div>
-                    : false}
-                <div>
-                    {/*{<Footer />}*/}
-                </div>
 
+                    <Footer/>
+              </div>
+                : false }
             </div>
 
         )
