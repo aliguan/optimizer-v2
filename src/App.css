@@ -1242,10 +1242,15 @@ input:-webkit-autofill:active {
     font-size: 12px;
 }
 
-.footer img {
-    max-width: 50%;
+.footer ul li:first-child {
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
+.footer-content {
+    width: 80%;
+    margin: auto;
+}
 .hover-item {
     color: white;
     transition: 500ms;
@@ -1254,13 +1259,18 @@ input:-webkit-autofill:active {
     transform: scale(1.2);
 }
 
-.footer li {
-    font-size: 1.2em;
+.social-icons:first-child {
+    display: block;
 }
 
 .social-icons li {
     display: inline-block;
     margin-right: 1em!important;
+}
+
+.social-icons div {
+    width: calc(100%/2);
+    margin: auto;
 }
 
 .social-icons img {
