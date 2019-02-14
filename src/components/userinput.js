@@ -2204,16 +2204,28 @@ class Userinput extends Component {
                       <div className="col-md-4 scroll-column">
                           <div className="results-column">
                                     {/* All data gets shown here (api data, a nd user added data) */}
-                                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a onClick={this.handleTabState} className={eventsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_EVENT_TAB_ID} data-toggle="tab" href="#nav-events" role="tab"
-                                            aria-controls="nav-events" aria-selected="true">Events and Places</a>
-                                        <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_FOOD_TAB_ID} data-toggle="tab" href="#nav-food" role="tab"
-                                            aria-controls="nav-food" aria-selected="false"> Restaurants</a>
-                                        <a onClick={this.handleTabState} className={moreOptionsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_MOREOPTIONS_TAB_ID} data-toggle="tab" href="#nav-moreoptions"
-                                            role="tab" aria-controls="nav-moreoptions" aria-selected="false"> More Options</a>
+                                    <div className="tabs tabs-style-tzoid">
+                                        <nav id="nav-tab" role="tablist">
+                                            <ul>
+                                                <li>
+                                                    <a onClick={this.handleTabState} className={eventsLinkClass.join(' ')}
+                                                        id={CONSTANTS.NAV_EVENT_TAB_ID} data-toggle="tab" href="#nav-events" role="tab"
+                                                        aria-controls="nav-events" aria-selected="true">Events and Places
+                                                    </a>
+                                                </li>
+                                                <li> <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
+                                                        id={CONSTANTS.NAV_FOOD_TAB_ID} data-toggle="tab" href="#nav-food" role="tab"
+                                                        aria-controls="nav-food" aria-selected="false"> Restaurants
+                                                </a>
+                                                </li>
+                                                {/*<li>*/}
+                                                    {/*<a onClick={this.handleTabState} className={moreOptionsLinkClass.join(' ')}*/}
+                                                       {/*id={CONSTANTS.NAV_MOREOPTIONS_TAB_ID} data-toggle="tab" href="#nav-moreoptions"*/}
+                                                       {/*role="tab" aria-controls="nav-moreoptions" aria-selected="false"> More Options*/}
+                                                    {/*</a>*/}
+                                                {/*</li>*/}
+                                            </ul>
+                                        </nav>
                                     </div>
                                     <div className={eventsTabsClass.join(' ')} id="nav-events" role="tabpanel"
                                         aria-labelledby="nav-options-tab">
