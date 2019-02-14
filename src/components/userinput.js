@@ -1976,12 +1976,12 @@ class Userinput extends Component {
         var genericTabsClass = ['itinerary', 'tab-pane', 'fade'];
         var eventsTabsClass = genericTabsClass.slice();
         var restaurantsTabsClass = genericTabsClass.slice();
-        var moreOptionsTabsClass = genericTabsClass.slice();
+        //var moreOptionsTabsClass = genericTabsClass.slice();
 
         var genericLinkClass = ['nav-item', 'nav-link'];
         var eventsLinkClass = genericLinkClass.slice();
         var restaurantsLinkClass = genericLinkClass.slice();
-        var moreOptionsLinkClass = genericLinkClass.slice();
+        //var moreOptionsLinkClass = genericLinkClass.slice();
 
         if (this.state.tabState.localeCompare(CONSTANTS.NAV_EVENT_TAB_ID) === 0) {
             eventsTabsClass.push('show');
@@ -1994,9 +1994,9 @@ class Userinput extends Component {
             restaurantsLinkClass.push('active');
         }
         else {
-            moreOptionsTabsClass.push('show');
-            moreOptionsTabsClass.push('active');
-            moreOptionsLinkClass.push('active');
+            // moreOptionsTabsClass.push('show');
+            // moreOptionsTabsClass.push('active');
+            // moreOptionsLinkClass.push('active');
         }
 
         //Home Page Form -- revisit
@@ -2171,6 +2171,11 @@ class Userinput extends Component {
                               tabState={this.state.tabState}
                               handleTimeFilter={this.handleTimeFilter}
                               handleMealFilter={this.handleMealFilter}
+                              handleUpdateUserFoodCost={this.handleUpdateUserFoodCost}
+                              handleUpdateUserEventCost={this.handleUpdateUserEventCost}
+                              handleUpdateEventTypeSearch={this.handleUpdateEventTypeSearch}
+                              userFoodCost={this.state.userFoodCost}
+                              userEventCost={this.state.userEventCost}
                           />
                       </div>
                   </div>
@@ -2264,14 +2269,9 @@ class Userinput extends Component {
                                     </div>
 
 
-                                    <div className={moreOptionsTabsClass.join(' ')} id="nav-moreoptions" role="tabpanel"
-                                        aria-labelledby="nav-moreoptions-tab">
-                                        {<MoreOptions updateUserFoodCost={this.handleUpdateUserFoodCost}
-                                            updateUserEventCost={this.handleUpdateUserEventCost}
-                                            updateEventTypeSearch={this.handleUpdateEventTypeSearch}
-                                            currentFoodCost={this.state.userFoodCost}
-                                            currentEventCost={this.state.userEventCost} />}
-                                    </div>
+                                    {/*<div className={moreOptionsTabsClass.join(' ')} id="nav-moreoptions" role="tabpanel"*/}
+                                        {/*aria-labelledby="nav-moreoptions-tab">*/}
+                                    {/*</div>*/}
                                 </div>
                                 {/* { <GoogleApiWrapper show={this.state.mapOrResultsState} results={this.state.resultsArray}
                                             center={this.state.center} showMarkerOnHoverObj={this.state.mapItinCardHoverStates}/> } */}

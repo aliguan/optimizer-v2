@@ -6,6 +6,7 @@ import TimeFilter from "./timeFilter";
 import MealFilter from "./mealFilter";
 import React from "react";
 import Button from '@material-ui/core/Button';
+import MoreOptions from "./moreOptions";
 
 // this component serves as the dialog box that pops up when the location the user input is not valid.
 
@@ -13,12 +14,12 @@ class AllFilters extends React.Component {
     constructor(props) {
         super(props);
 
-        // this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handlePriceFilterDisplay = this.handlePriceFilterDisplay.bind(this);
         this.handleDistanceFilterDisplay = this.handleDistanceFilterDisplay.bind(this);
         this.handleApiFilterDisplay = this.handleApiFilterDisplay.bind(this);
         this.handleMealFilterDisplay = this.handleMealFilterDisplay.bind(this);
         this.handleTimeFilterDisplay = this.handleTimeFilterDisplay.bind(this);
+        this.handleMoreOptionsFilterDisplay = this.handleMoreOptionsFilterDisplay.bind(this);
     }
 
     state = {
@@ -26,7 +27,8 @@ class AllFilters extends React.Component {
         openDistance: false,
         openApi: false,
         openMeal: false,
-        openTime: false
+        openTime: false,
+        openMore: false
     };
 
 
@@ -50,6 +52,10 @@ class AllFilters extends React.Component {
         this.setState({openTime:!this.state.openTime});
     }
 
+    handleMoreOptionsFilterDisplay() {
+        this.setState({openMore:!this.state.openMore});
+    }
+
     render() {
 
         return (
@@ -63,6 +69,7 @@ class AllFilters extends React.Component {
                         :
                         <Button variant="outlined" onClick={this.handleMealFilterDisplay}>Meals</Button>
                     }
+                    <Button variant="outlined" onClick={this.handleMoreOptionsFilterDisplay}>More</Button>
 
                     <PriceFilter open={this.state.openPrices}
                                  close={this.handlePriceFilterDisplay}
@@ -91,6 +98,14 @@ class AllFilters extends React.Component {
                         >
                         </MealFilter>
                     }
+                    <MoreOptions  updateUserFoodCost={this.props.handleUpdateUserFoodCost}
+                                  updateUserEventCost={this.props.handleUpdateUserEventCost}
+                                  updateEventTypeSearch={this.props.handleUpdateEventTypeSearch}
+                                  currentFoodCost={this.props.userFoodCost}
+                                  currentEventCost={this.props.userEventCost}
+                                  open={this.state.openMore}
+                                  close={this.handleMoreOptionsFilterDisplay}
+                    />
                 </div>
             </div>
         );

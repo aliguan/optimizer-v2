@@ -773,6 +773,13 @@ button.close {
     left: 291px;
 }
 
+#more-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 469px;
+}
+
+
 .activeStatebtn {
     background-color: #3f51b5!important;
     color: white!important;
