@@ -1867,18 +1867,23 @@ class Userinput extends Component {
 
 
             var numPages = Math.floor(filteredEventObj.numFilteredEvents / CONSTANTS.NUM_RESULTS_PER_PAGE) + 1;
-            pages.push("<");
 
-            for (i = 0; i < numPages; i++) {
-                pageNumber = i + 1;
-                if (this.state.pageNumber !== pageNumber) {
-                    pages.push(<PaginationLink key={"pg" + pageNumber} pageNumber={pageNumber} onPageLinkClick={this.handleEventPageClick} />);
+            if(!filteredEventObj.numFilteredEvents ) {
+                pages.push('No results found. Please search again.');
+            } else {
+                pages.push("<");
+
+                for (i = 0; i < numPages; i++) {
+                    pageNumber = i + 1;
+                    if (this.state.pageNumber !== pageNumber) {
+                        pages.push(<PaginationLink key={"pg" + pageNumber} pageNumber={pageNumber} onPageLinkClick={this.handleEventPageClick} />);
+                    }
+                    else {
+                        pages.push(pageNumber);
+                    }
                 }
-                else {
-                    pages.push(pageNumber);
-                }
+                pages.push(">");
             }
-            pages.push(">");
         }
 
         var eventsMultiResults = [];
@@ -1896,18 +1901,23 @@ class Userinput extends Component {
                 this.state.filterRadius);
 
             var numPages = Math.floor(filteredFoodObj.numFilteredFoodPlaces / CONSTANTS.NUM_RESULTS_PER_PAGE) + 1;
-            foodPages.push("<");
 
-            for (i = 0; i < numPages; i++) {
-                foodPageNumber = i + 1;
-                if (this.state.foodPageNumber !== foodPageNumber) {
-                    foodPages.push(<PaginationLink key={"pg" + foodPageNumber} pageNumber={foodPageNumber} onPageLinkClick={this.handleFoodPageClick} />);
+            if(!filteredFoodObj.numFilteredFoodPlaces) {
+                foodPages.push('No results found. Please search again.');
+            } else {
+                foodPages.push("<");
+                for (i = 0; i < numPages; i++) {
+                    foodPageNumber = i + 1;
+                    if (this.state.foodPageNumber !== foodPageNumber) {
+                        foodPages.push(<PaginationLink key={"pg" + foodPageNumber} pageNumber={foodPageNumber} onPageLinkClick={this.handleFoodPageClick} />);
+                    }
+                    else {
+                        foodPages.push(foodPageNumber);
+                    }
                 }
-                else {
-                    foodPages.push(foodPageNumber);
-                }
+                foodPages.push(">");
             }
-            foodPages.push(">");
+
         }
 
         var foodMultiResults = [];
@@ -2206,7 +2216,7 @@ class Userinput extends Component {
                               <h5>Planning your trip...</h5>
                           </div> : false
                       }
-                      <div className="col-md-4 scroll-column">
+                      <div className="col-md-5 scroll-column">
                           <div className="results-column">
                                     {/* All data gets shown here (api data, a nd user added data) */}
                                     <div className="tabs tabs-style-tzoid">
@@ -2218,10 +2228,12 @@ class Userinput extends Component {
                                                         aria-controls="nav-events" aria-selected="true">Events and Places
                                                     </a>
                                                 </li>
-                                                <li> <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
+                                                <li>
+                                                    <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
                                                         id={CONSTANTS.NAV_FOOD_TAB_ID} data-toggle="tab" href="#nav-food" role="tab"
-                                                        aria-controls="nav-food" aria-selected="false"> Restaurants
-                                                </a>
+                                                        aria-controls="nav-food" aria-selected="false">
+                                                        Restaurants
+                                                    </a>
                                                 </li>
                                                 {/*<li>*/}
                                                     {/*<a onClick={this.handleTabState} className={moreOptionsLinkClass.join(' ')}*/}
@@ -2247,7 +2259,7 @@ class Userinput extends Component {
                                             maxRadius={this.state.searchRadiusForFilterCompare}
                                             tabState={this.state.tabState}
                                             userEventCost={this.state.userEventCost} />}
-                                        {pages}
+                                        <p>{pages}</p>
 
                                     </div>
 
@@ -2265,7 +2277,7 @@ class Userinput extends Component {
                                             maxRadius={this.state.searchRadiusForFilterCompare}
                                             tabState={this.state.tabState}
                                             userEventCost={this.state.userEventCost} />}
-                                        {foodPages}
+                                        <p>{foodPages}</p>
                                     </div>
 
 
@@ -2276,7 +2288,7 @@ class Userinput extends Component {
                                 {/* { <GoogleApiWrapper show={this.state.mapOrResultsState} results={this.state.resultsArray}
                                             center={this.state.center} showMarkerOnHoverObj={this.state.mapItinCardHoverStates}/> } */}
                             </div>
-                            <div id="mapBoxID" className="col-md-4 scroll-column">
+                            <div id="mapBoxID" className="col-md-3 scroll-column">
                                   <MapBoxComponent show={this.state.mapOrResultsState}
                                                    results={this.state.resultsArray}
                                                    center={this.state.center}

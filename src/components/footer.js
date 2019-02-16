@@ -45,12 +45,14 @@ export class Footer extends Component {
                         </div>
                         <div className="col-md-3">
                             <ul className="social-icons">
-                                <li><strong>CONNECT WITH US</strong></li>
-                                <div>
-                                    <li className="hover-item"><i className="fab fa-facebook-square"></i></li>
-                                    <li className="hover-item"><i className="fab fa-instagram"></i></li>
-                                    <li className="hover-item"><i className="fab fa-youtube"></i></li>
-                                </div>
+                                <li><strong>CONNECT WITH US</strong>
+                                    <ul>
+                                        <li className="hover-item"><i className="fab fa-facebook-square"></i></li>
+                                        <li className="hover-item"><i className="fab fa-instagram"></i></li>
+                                        <li className="hover-item"><i className="fab fa-youtube"></i></li>
+                                    </ul>
+                                </li>
+
                             </ul>
                         </div>
                     </div>

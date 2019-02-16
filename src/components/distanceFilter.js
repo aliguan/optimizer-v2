@@ -70,7 +70,8 @@ class DistanceFilter extends React.Component {
         this.setState({
             openRadius: false,
             prevRadius: this.state.value,
-        })
+        });
+        this.props.close();
     };
 
     render() {
@@ -91,7 +92,6 @@ class DistanceFilter extends React.Component {
         return (
             <Dialog
                 open={this.props.open}
-                onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="filters"

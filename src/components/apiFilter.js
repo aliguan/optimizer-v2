@@ -143,7 +143,8 @@ class ClickAway extends React.Component {
             prevMu: this.state.mu,
             prevSg: this.state.sg,
             prevAll: this.state.all,
-        })
+        });
+        this.props.close();
     };
 
 
@@ -178,7 +179,6 @@ class ClickAway extends React.Component {
         return (
             <Dialog
                 open={this.props.open}
-                onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="filters"

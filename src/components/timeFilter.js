@@ -59,7 +59,6 @@ class TimeFilter extends React.Component {
     }
 
     state = {
-        open: false,
         min: CONSTANTS.ABS_TIMEFILTER_MIN,
         max: CONSTANTS.ABS_TIMEFILTER_MAX,
         value: [CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX],
@@ -80,9 +79,6 @@ class TimeFilter extends React.Component {
         this.wrapperRef = node;
     }
 
-    /**
-     * Alert if clicked on outside of element
-     */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
             this.props.close();
@@ -148,7 +144,8 @@ class TimeFilter extends React.Component {
             value: [this.state.value[0], this.state.value[1]],
             prevMin: this.state.value[0],
             prevMax: this.state.value[1],
-        })
+        });
+        this.props.close();
     };
 
     handleClear = (props) => {
@@ -196,7 +193,6 @@ class TimeFilter extends React.Component {
         return (
             <Dialog
                 open={this.props.open}
-                onClose={this.handleClose}
                 id="time-filter"
                 className="filters"
             >

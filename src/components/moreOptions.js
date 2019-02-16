@@ -72,6 +72,7 @@ class MoreOptions extends Component {
         var userEventCost = misc.round2NearestHundredth(parseFloat(this.state.eventCost));
         this.props.updateUserEventCost(userEventCost);
         this.props.updateEventTypeSearch(this.state.eventType);
+        this.props.close();
     }
 
     handleReset(event) {
@@ -102,7 +103,6 @@ class MoreOptions extends Component {
         return (
             <Dialog
                 open={this.props.open}
-                onClose={this.handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className="filters"
@@ -148,13 +148,13 @@ class MoreOptions extends Component {
                                     </FormControl>
                                 </div>
 
-                                <Button    onClick={this.handleApply}>
+                                <Button onClick={this.handleApply}>
                                     Apply
-                            </Button>
+                                </Button>
 
-                                <Button    onClick={this.handleReset}>
+                                <Button onClick={this.handleReset}>
                                     Reset
-                            </Button>
+                                </Button>
                             </div>
                         </DialogContentText>
                     </DialogContent>

@@ -11,6 +11,7 @@ const muiTheme = getMuiTheme({
   slider: {
     selectionColor: '#3f51b5'
   },
+
 });
 
 
