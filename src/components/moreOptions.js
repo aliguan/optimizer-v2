@@ -16,6 +16,7 @@ import Dialog from "@material-ui/core/Dialog/Dialog";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     root: {
@@ -29,6 +30,20 @@ const styles = theme => ({
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
     },
+    content: {
+        minWidth: '250px',
+    },
+    actions: {
+        marginTop: '1em',
+        fontSize: '0.9em',
+        width: '100%',
+    },
+    apply: {
+        float: 'right',
+    },
+    actionDivs: {
+        padding: '8px 0',
+    }
 });
 
 
@@ -100,6 +115,8 @@ class MoreOptions extends Component {
     };
 
     render() {
+        const { classes } = this.props;
+
         return (
             <Dialog
                 open={this.props.open}
@@ -109,33 +126,26 @@ class MoreOptions extends Component {
                 id="more-filter"
             >
                 <div ref={this.setWrapperRef}>
-                    <DialogContent>
+                    <DialogContent className={classes.content}>
                         <DialogContentText id="alert-dialog-description">
                             <div>
-                                <div>
-                                    <Paper >
-                                        <Typography id="label">{CONSTANTS.MOREOPT_FOODSTRING}</Typography>
-                                        <Slider value={this.state.foodCost} min={0} max={CONSTANTS.MOREOPT_MAXFOODPRICE}
-                                            step={CONSTANTS.MOREOPT_FOODPRICESTEP}
-                                            onChange={this.handleFoodChange} />
-                                        ${this.state.foodCost}
-
-                                    </Paper>
+                                <div className={classes.actionDivs}>
+                                    <Typography id="label">{CONSTANTS.MOREOPT_FOODSTRING}</Typography>
+                                    <Slider value={this.state.foodCost} min={0} max={CONSTANTS.MOREOPT_MAXFOODPRICE}
+                                        step={CONSTANTS.MOREOPT_FOODPRICESTEP}
+                                        onChange={this.handleFoodChange} />
+                                    ${this.state.foodCost}
                                 </div>
-                                <div>
-                                    <Paper >
-                                        <Typography id="label">{CONSTANTS.MOREOPT_EVENTSTRING}</Typography>
-                                        <Slider value={this.state.eventCost} min={0} max={CONSTANTS.MOREOPT_MAXEVENTPRICE}
-                                            step={CONSTANTS.MOREOPT_EVENTPRICESTEP}
-                                            onChange={this.handleEventChange} />
-                                        ${this.state.eventCost}
-
-                                    </Paper>
-
+                                <div className={classes.actionDivs}>
+                                    <Typography id="label">{CONSTANTS.MOREOPT_EVENTSTRING}</Typography>
+                                    <Slider value={this.state.eventCost} min={0} max={CONSTANTS.MOREOPT_MAXEVENTPRICE}
+                                        step={CONSTANTS.MOREOPT_EVENTPRICESTEP}
+                                        onChange={this.handleEventChange} />
+                                    ${this.state.eventCost}
                                 </div>
-                                <div>
+                                <div className={classes.actionDivs}>
                                     <FormControl>
-                                        <InputLabel>{CONSTANTS.EVENT_CUSTOMIZATION_STRING}</InputLabel>
+                                        <Typography>{CONSTANTS.EVENT_CUSTOMIZATION_STRING}</Typography>
                                         <Select
                                         value={this.state.eventType}
                                         onChange={this.handleEventTypeChange}>
@@ -148,20 +158,19 @@ class MoreOptions extends Component {
                                     </FormControl>
                                 </div>
 
-                                <Button onClick={this.handleApply}>
-                                    Apply
-                                </Button>
 
-                                <Button onClick={this.handleReset}>
-                                    Reset
-                                </Button>
                             </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.close} color="primary">
-                            Close
-                        </Button>
+                        <div  className={classes.actions}>
+                            <Button onClick={this.handleReset}>
+                                Clear
+                            </Button>
+                            <Button className={classes.apply} onClick={this.handleApply}>
+                                Apply
+                            </Button>
+                        </div>
                     </DialogActions>
                 </div>
             </Dialog>
@@ -169,4 +178,9 @@ class MoreOptions extends Component {
     }
 }
 
-export default MoreOptions;
+
+MoreOptions.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(MoreOptions);

@@ -40,13 +40,18 @@ const styles = theme => ({
     actions: {
         marginTop: '2em',
         fontSize: '0.9em',
+        width: '100%'
     },
     apply: {
         float: 'right',
     },
     clear: {
         float: 'left',
-    }
+    },
+    content: {
+        paddingBottom: '0px',
+        minWidth: '200px',
+    },
 });
 
 class TimeFilter extends React.Component {
@@ -197,10 +202,10 @@ class TimeFilter extends React.Component {
                 className="filters"
             >
              <div ref={this.setWrapperRef}>
-                <DialogContent>
+                <DialogContent className={classes.content}>
                     <DialogContentText>
                         <div>
-                            <Typography className={classes.header}>Time <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
+                            <Typography className={classes.header}>Time</Typography>
                             <Range allowCross={false}  value={this.state.value} className={classes.slider}
                                 defaultValue={[CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX]}
                                 min={this.state.min} max={this.state.max}
@@ -208,22 +213,21 @@ class TimeFilter extends React.Component {
                                 onChange={this.onSliderChange}
                                 tipFormatter={this.handleDisplay}
                             />
-
-                            <div className={classes.actions}>
-                                <Button className={classes.button} onClick={this.handleClear}>
-                                    Clear
-                                </Button>
-                                <Button className={classes.button} onClick={this.handleApply}>
-                                    Apply
-                                </Button>
-                            </div>
+                        </div>
+                        <div>
+                            <Typography className={classes.header}> <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
                         </div>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
-                        Close
-                    </Button>
+                    <div className={classes.actions}>
+                        <Button className={classes.button} onClick={this.handleClear}>
+                            Clear
+                        </Button>
+                        <Button className={classes.apply} onClick={this.handleApply}>
+                            Apply
+                        </Button>
+                    </div>
                 </DialogActions>
             </div>
             </Dialog>

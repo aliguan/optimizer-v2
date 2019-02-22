@@ -23,6 +23,9 @@ const styles = theme => ({
         width: '25%',
         padding: '1em',
         'z-index': 9999
+    },
+    content: {
+        paddingBottom: '0px',
     }
 });
 
@@ -186,7 +189,7 @@ class ClickAway extends React.Component {
             >
                 <div ref={this.setWrapperRef}>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                        <DialogContentText className={classes.content} id="alert-dialog-description">
                             <div>
                                 <Typography id="label">Include events & places from: </Typography>
                                 <FormControl component="fieldset">
@@ -248,15 +251,13 @@ class ClickAway extends React.Component {
                                         />
                                     </FormGroup>
                                 </FormControl>
-                                <Button    className={classes.button} onClick={this.handleApply}>
-                                    Apply
-                                </Button>
+
                             </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.close} color="primary">
-                            Close
+                        <Button className={classes.button} onClick={this.handleApply}>
+                            Apply
                         </Button>
                     </DialogActions>
                 </div>

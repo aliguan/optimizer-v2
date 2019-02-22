@@ -21,6 +21,14 @@ const styles = theme => ({
         width: '25%',
         padding: '1em',
         'z-index': 9999
+    },
+    actions: {
+        marginTop: '1em',
+        fontSize: '0.9em',
+        width: '100%',
+    },
+    apply: {
+        float: 'right',
     }
 });
 
@@ -103,16 +111,19 @@ class DistanceFilter extends React.Component {
                         <div>
                             <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
                             <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
-                            <Button className={classes.button} onClick={this.handleApply}>
-                                Apply
-                            </Button>
+
                         </div>
                     </DialogContentText>
                 </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.close} color="primary">
-                            Close
-                        </Button>
+                        <div className={classes.actions}>
+                            <Button onClick={this.props.close} color="primary">
+                                Close
+                            </Button>
+                            <Button className={classes.apply} onClick={this.handleApply}>
+                                Apply
+                            </Button>
+                        </div>
                     </DialogActions>
                 </div>
             </Dialog>

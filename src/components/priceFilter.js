@@ -40,8 +40,9 @@ const styles = theme => ({
         color: CONSTANTS.PRIMARY_COLOR,
     },
     actions: {
-        marginTop: '2em',
+        marginTop: '1em',
         fontSize: '0.9em',
+        width: '100%',
     },
     apply: {
         float: 'right',
@@ -97,7 +98,6 @@ class PriceSlider extends React.Component {
     handleApply = (props) => {
         this.props.setPriceRange(this.state.value);
         this.setState({
-            open: false,
             value: [this.state.value[0], this.state.value[1]],
             prevMin: this.state.value[0],
             prevMax: this.state.value[1],
@@ -155,21 +155,21 @@ class PriceSlider extends React.Component {
                                     />
                                     <span className={classes.span}>${this.state.value[1]}</span>
                                 </div>
-                                <div className={classes.actions}>
-                                    <Button className={classes.button} onClick={this.handleClear}>
-                                        Clear
-                                    </Button>
-                                    <Button className={classes.button} onClick={this.handleApply}>
-                                        Apply
-                                    </Button>
-                                </div>
+
+
+
                             </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.close} color="primary">
-                            Close
-                        </Button>
+                        <div className={classes.actions}>
+                            <Button className={classes.button} onClick={this.handleClear}>
+                               Clear
+                            </Button>
+                            <Button className={classes.apply} onClick={this.handleApply}>
+                                Apply
+                            </Button>
+                        </div>
                     </DialogActions>
                 </div>
             </Dialog>
