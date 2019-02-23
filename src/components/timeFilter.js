@@ -30,12 +30,13 @@ const styles = theme => ({
         zIndex: '9999',
     },
     header: {
-        marginBottom: '2em',
-        fontSize: '1em',
+        marginTop: '1em',
+        textAlign: 'center',
+        fontSize: '16px'
     },
     span: {
-        float: 'right',
-        color: CONSTANTS.PRIMARY_COLOR,
+        color: '#000000de',
+        margin: '10px',
     },
     actions: {
         marginTop: '2em',
@@ -44,13 +45,15 @@ const styles = theme => ({
     },
     apply: {
         float: 'right',
+        color: CONSTANTS.PRIMARY_COLOR,
     },
     clear: {
         float: 'left',
+        color: CONSTANTS.PRIMARY_COLOR,
     },
     content: {
         paddingBottom: '0px',
-        minWidth: '200px',
+        minWidth: '220px',
     },
 });
 
@@ -205,7 +208,6 @@ class TimeFilter extends React.Component {
                 <DialogContent className={classes.content}>
                     <DialogContentText>
                         <div>
-                            <Typography className={classes.header}>Time</Typography>
                             <Range allowCross={false}  value={this.state.value} className={classes.slider}
                                 defaultValue={[CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX]}
                                 min={this.state.min} max={this.state.max}
@@ -221,7 +223,7 @@ class TimeFilter extends React.Component {
                 </DialogContent>
                 <DialogActions>
                     <div className={classes.actions}>
-                        <Button className={classes.button} onClick={this.handleClear}>
+                        <Button className={classes.clear} onClick={this.handleClear}>
                             Clear
                         </Button>
                         <Button className={classes.apply} onClick={this.handleApply}>

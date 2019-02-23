@@ -11,6 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
+import CONSTANTS from "../constants";
 
 const styles = theme => ({
     root: {
@@ -26,6 +27,23 @@ const styles = theme => ({
     },
     content: {
         paddingBottom: '0px',
+    },
+    colorSwitchBase: {
+        color: '#0066d2',
+        '&$colorChecked': {
+            color: '#0066d2',
+            '& + $colorBar': {
+                backgroundColor: '#0066d2',
+            },
+        },
+    },
+    colorBar: { color: CONSTANTS.PRIMARY_COLOR,},
+    colorChecked: { color: CONSTANTS.PRIMARY_COLOR,},
+    apply: {
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    title: {
+        marginBottom: '1em',
     }
 });
 
@@ -191,7 +209,7 @@ class ClickAway extends React.Component {
                     <DialogContent>
                         <DialogContentText className={classes.content} id="alert-dialog-description">
                             <div>
-                                <Typography id="label">Include events & places from: </Typography>
+                                <Typography className={classes.title} id="label">Include events & places from: </Typography>
                                 <FormControl component="fieldset">
                                     <FormGroup>
                                         <FormControlLabel
@@ -200,7 +218,11 @@ class ClickAway extends React.Component {
                                                     checked={this.state.all}
                                                     onChange={this.handleAllChange('all')}
                                                     value="all"
-                                                    color="primary"
+                                                    classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
                                                 />
                                             }
                                             label="Select All"
@@ -211,7 +233,11 @@ class ClickAway extends React.Component {
                                                     checked={this.state.eb}
                                                     onChange={this.handleChange('eb')}
                                                     value="eb"
-                                                    color="primary"
+                                                     classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
                                                 />
                                             }
                                             label="Eventbrite"
@@ -222,7 +248,11 @@ class ClickAway extends React.Component {
                                                     checked={this.state.mu}
                                                     onChange={this.handleChange('mu')}
                                                     value="mu"
-                                                    color="primary"
+                                                     classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
                                                 />
                                             }
                                             label="Meetup"
@@ -233,7 +263,11 @@ class ClickAway extends React.Component {
                                                     checked={this.state.gp}
                                                     onChange={this.handleChange('gp')}
                                                     value="gp"
-                                                    color="primary"
+                                                     classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
                                                 />
                                             }
                                             label="Google Places"
@@ -244,19 +278,22 @@ class ClickAway extends React.Component {
                                                     checked={this.state.sg}
                                                     onChange={this.handleChange('sg')}
                                                     value="sg"
-                                                    color="primary"
+                                                     classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
                                                 />
                                             }
                                             label="SeatGeek"
                                         />
                                     </FormGroup>
                                 </FormControl>
-
                             </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button className={classes.button} onClick={this.handleApply}>
+                        <Button className={classes.apply} onClick={this.handleApply}>
                             Apply
                         </Button>
                     </DialogActions>

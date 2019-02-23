@@ -29,6 +29,7 @@ const styles = theme => ({
     },
     apply: {
         float: 'right',
+        color: '#0066d2',
     }
 });
 
@@ -111,7 +112,6 @@ class DistanceFilter extends React.Component {
                         <div>
                             <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
                             <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
-
                         </div>
                     </DialogContentText>
                 </DialogContent>

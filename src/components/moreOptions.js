@@ -40,9 +40,16 @@ const styles = theme => ({
     },
     apply: {
         float: 'right',
+        color: '#0066d2',
     },
     actionDivs: {
         padding: '8px 0',
+    },
+    eventSelect: {
+        fontSize: '14px',
+    },
+    clear: {
+        color: '#0066d2',
     }
 });
 
@@ -147,24 +154,23 @@ class MoreOptions extends Component {
                                     <FormControl>
                                         <Typography>{CONSTANTS.EVENT_CUSTOMIZATION_STRING}</Typography>
                                         <Select
-                                        value={this.state.eventType}
-                                        onChange={this.handleEventTypeChange}>
-                                            <MenuItem value={0}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[0]}</MenuItem>
-                                            <MenuItem value={1}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[1]}</MenuItem>
-                                            <MenuItem value={2}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[2]}</MenuItem>
-                                            <MenuItem value={3}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[3]}</MenuItem>
-                                            <MenuItem value={4}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[4]}</MenuItem>
+                                            className={classes.eventSelect}
+                                            value={this.state.eventType}
+                                            onChange={this.handleEventTypeChange}>
+                                                <MenuItem value={0}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[0]}</MenuItem>
+                                                <MenuItem value={1}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[1]}</MenuItem>
+                                                <MenuItem value={2}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[2]}</MenuItem>
+                                                <MenuItem value={3}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[3]}</MenuItem>
+                                                <MenuItem value={4}>{CONSTANTS.EVENTTYPE_SEARCHKEYS[4]}</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </div>
-
-
                             </div>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <div  className={classes.actions}>
-                            <Button onClick={this.handleReset}>
+                            <Button className={classes.clear}  onClick={this.handleReset}>
                                 Clear
                             </Button>
                             <Button className={classes.apply} onClick={this.handleApply}>

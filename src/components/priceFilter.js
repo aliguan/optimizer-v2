@@ -37,15 +37,20 @@ const styles = theme => ({
         fontSize: '1em',
     },
     span: {
-        color: CONSTANTS.PRIMARY_COLOR,
+        color: '#000000de',
     },
     actions: {
-        marginTop: '1em',
-        fontSize: '0.9em',
         width: '100%',
     },
     apply: {
         float: 'right',
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    clear: {
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    content: {
+        paddingBottom: 0,
     }
 });
 
@@ -144,7 +149,7 @@ class PriceSlider extends React.Component {
             >
                 <div ref={this.setWrapperRef}>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                        <DialogContentText className={classes.content} id="alert-dialog-description">
                             <div>
                                 <div className="price-slider">
                                     <span>${this.state.value[0]}</span>
@@ -163,7 +168,7 @@ class PriceSlider extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <div className={classes.actions}>
-                            <Button className={classes.button} onClick={this.handleClear}>
+                            <Button className={classes.clear} onClick={this.handleClear}>
                                Clear
                             </Button>
                             <Button className={classes.apply} onClick={this.handleApply}>
