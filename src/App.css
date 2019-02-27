@@ -1619,3 +1619,17 @@ input:-webkit-autofill:active {
 .apply-btn {
     color: #0066d2!important;
 }
+
+.rc-slider-handle, .rc-slider-track {
+    color: #0066d2!important;
+    border: solid 1px #0066d2!important;
+    background-color: #0066d2!important;
+}
+.rc-slider-handle {
+    width: 13px!important;
+    height: 13px!important;
+}
+
+.rc-slider-rail, .rc-slider-track {
+    height: 2px!important;
+}

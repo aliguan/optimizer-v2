@@ -30,7 +30,11 @@ const styles = theme => ({
     apply: {
         float: 'right',
         color: '#0066d2',
-    }
+    },
+    content: {
+        paddingBottom: '0px',
+        minWidth: '220px',
+    },
 });
 
 class DistanceFilter extends React.Component {
@@ -107,14 +111,14 @@ class DistanceFilter extends React.Component {
                 id="distance-filter"
             >
                 <div ref={this.setWrapperRef}>
-                    <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <div>
-                            <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
-                            <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
-                        </div>
-                    </DialogContentText>
-                </DialogContent>
+                    <DialogContent className={classes.content}>
+                        <DialogContentText id="alert-dialog-description">
+                            <div>
+                                <Typography id="label">{CONSTANTS.RADIUS_FILTER_STR}</Typography>
+                                <Slider value={value} min={0} max={this.props.maxDistance} step={1} onChange={this.handleChange} ref={distanceSlider => this.distanceSlider = distanceSlider} />
+                            </div>
+                        </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                         <div className={classes.actions}>
                             <Button onClick={this.props.close} color="primary">
