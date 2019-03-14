@@ -469,7 +469,7 @@ tbody:hover {
 }
 
 .resultsName {
-    max-width: 450px;
+    /*max-width: 450px;*/
     text-align: left;
     display: grid;
     /* grid-template-columns: 1fr 4fr; */
@@ -804,6 +804,12 @@ button.close {
 
 .results-column {
     padding-top: 1em;
+    margin: 0em 1em;
+    margin-bottom: 1em;
+}
+
+.results-cont {
+    padding: 0;
 }
 
 /* itinDiv is temporary*/
@@ -857,8 +863,6 @@ button.close {
     width: 100%; /*70%*/
     /* margin-left: 5%; */
     margin-right: auto;
-    max-width: 600px;
-    min-width: 500px;
     padding-right: .5rem;
     /* dotted line for left side of itinerary */
     padding-left: 1.5rem;
@@ -868,15 +872,15 @@ button.close {
 .itinSummary {
     width:100%;
     margin: auto;
-    max-width: 600px;
-    min-width: 500px;
+    /*max-width: 600px;*/
+    /*min-width: 500px;*/
 }
 
 .itinerarySumInfoContainer {
     display: inline-block;
     /* width: 90.5%; */
-    max-width: 600px;
-    min-width: 500px;
+    /*max-width: 600px;*/
+    /*min-width: 500px;*/
     margin-left: 3.75em;
     border: 1px solid #354e72 !important;
     border-radius: 3px!important;
@@ -894,7 +898,6 @@ button.close {
   display: inline-flex;
   /* max-height: 220px;*/
   /*height: 10.25em;*/ /* consistent with showActions before height*/
-  overflow-y: hidden;
 }
 
 .itinEvenShorterDescript {
@@ -1020,10 +1023,11 @@ button.close {
     position: relative;
     left: -1em;
     float: left;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
     font-size: .75em;
     color: #878787;
+    text-align: left;
 }
 
 .itinCardContainerDiv { /* itineraryCard encapsulating div class*/
@@ -1096,7 +1100,7 @@ button.close {
 }
 
 .costPanel {
-    padding: 1em;
+    margin-top: 1.2em;
 }
 
 .descBtn {
@@ -1425,6 +1429,7 @@ input:-webkit-autofill:active {
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    padding: 1em;
     padding-left: 1.5em;
     display: inline-flex;
 }

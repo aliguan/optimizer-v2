@@ -166,7 +166,8 @@ class Userinput extends Component {
         console.log("handletoggleitin")
         this.setState({
             showDetailedItinerary: !this.state.showDetailedItinerary,
-        })
+        });
+
     }
 
     //listens to click on search input on fixed nav
@@ -2190,7 +2191,7 @@ class Userinput extends Component {
                       </div>
                   </div>
                   <div className="row row-height wrapper eventsCont apidata">
-                      <main className="col-md-4 scroll-column">
+                      <main className="col-md-5 scroll-column">
                           <div>
                               {this.state.loading === true ?
                                   ' ' :
@@ -2216,7 +2217,7 @@ class Userinput extends Component {
                               <h5>Planning your trip...</h5>
                           </div> : false
                       }
-                      <div className="col-md-5 scroll-column">
+                      <div className="col-md-4 scroll-column results-cont">
                           <div className="results-column">
                                     {/* All data gets shown here (api data, a nd user added data) */}
                                     <div className="tabs tabs-style-tzoid">
