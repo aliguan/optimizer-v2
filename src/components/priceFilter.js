@@ -8,6 +8,11 @@ import 'rc-slider/assets/index.css';
 import CONSTANTS from '../constants';
 
 import Slider from 'rc-slider';
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
@@ -32,14 +37,20 @@ const styles = theme => ({
         fontSize: '1em',
     },
     span: {
-        color: CONSTANTS.PRIMARY_COLOR,
+        color: '#000000de',
     },
     actions: {
-        marginTop: '2em',
-        fontSize: '0.9em',
+        width: '100%',
     },
     apply: {
         float: 'right',
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    clear: {
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    content: {
+        paddingBottom: 0,
     }
 });
 
@@ -49,7 +60,7 @@ class PriceSlider extends React.Component {
         super(props);
 
         this.setWrapperRef = this.setWrapperRef.bind(this);
-        //this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     state = {
@@ -59,6 +70,7 @@ class PriceSlider extends React.Component {
         prevMin: CONSTANTS.DEFAULT_PRICEFILTER_MIN,
         prevMax: CONSTANTS.DEFAULT_PRICEFILTER_MAX,
         value: [CONSTANTS.DEFAULT_PRICEFILTER_MIN, CONSTANTS.DEFAULT_PRICEFILTER_MAX,],
+
     };
 
     componentDidMount() {
@@ -73,17 +85,14 @@ class PriceSlider extends React.Component {
         this.wrapperRef = node;
     }
 
-    // /**
-    //  * Alert if clicked on outside of element
-    //  */
-    // handleClickOutside(event) {
-    //     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-    //         this.setState({
-    //             open: false,
-    //             value: [this.state.prevMin, this.state.prevMax],
-    //         });
-    //     }
-    // }
+    /**
+     * Alert if clicked on outside of element
+     */
+    handleClickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.close();
+        }
+    }
 
     onSliderChange = (value) => {
         this.setState({
@@ -92,13 +101,13 @@ class PriceSlider extends React.Component {
     }
 
     handleApply = (props) => {
-        this.props.setPriceRange(this.state.value)
+        this.props.setPriceRange(this.state.value);
         this.setState({
-            open: false,
             value: [this.state.value[0], this.state.value[1]],
             prevMin: this.state.value[0],
             prevMax: this.state.value[1],
-        })
+        });
+        this.props.close();
     };
 
     handleClear = (props) => {
@@ -131,28 +140,44 @@ class PriceSlider extends React.Component {
 
 
         return (
-            <div className="filter" ref={this.setWrapperRef}>
-                <div className="filter-header">
-                    <p>Event Price?</p>
+            <Dialog
+                open={this.props.open}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="filters"
+                id="price-filter"
+            >
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
+                        <DialogContentText className={classes.content} id="alert-dialog-description">
+                            <div>
+                                <div className="price-slider">
+                                    <span>${this.state.value[0]}</span>
+                                    <Range allowCross={false} value={this.state.value} defaultValue={[CONSTANTS.DEFAULT_PRICEFILTER_MIN, CONSTANTS.DEFAULT_PRICEFILTER_MAX]}
+                                        min={CONSTANTS.DEFAULT_PRICEFILTER_MIN} max={CONSTANTS.DEFAULT_PRICEFILTER_MAX}
+                                        step={CONSTANTS.PRICE_FILTER_STEP}
+                                        onChange={this.onSliderChange} tipFormatter={value => `$${value}.00`}
+                                    />
+                                    <span className={classes.span}>${this.state.value[1]}</span>
+                                </div>
+
+
+
+                            </div>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <div className={classes.actions}>
+                            <Button className={classes.clear} onClick={this.handleClear}>
+                               Clear
+                            </Button>
+                            <Button className={classes.apply} onClick={this.handleApply}>
+                                Apply
+                            </Button>
+                        </div>
+                    </DialogActions>
                 </div>
-                <div className="price-slider">
-                    <span>${this.state.value[0]}</span>
-                    <Range allowCross={false} value={this.state.value} defaultValue={[CONSTANTS.DEFAULT_PRICEFILTER_MIN, CONSTANTS.DEFAULT_PRICEFILTER_MAX]}
-                        min={CONSTANTS.DEFAULT_PRICEFILTER_MIN} max={CONSTANTS.DEFAULT_PRICEFILTER_MAX}
-                        step={CONSTANTS.PRICE_FILTER_STEP}
-                        onChange={this.onSliderChange} tipFormatter={value => `$${value}.00`}
-                    />
-                    <span className={classes.span}>${this.state.value[1]}</span>
-                </div>
-                {/*<div className={classes.actions}>*/}
-                    {/*<Button href="#text-buttons" className={classes.button} onClick={this.handleClear}>*/}
-                        {/*Clear*/}
-                    {/*</Button>*/}
-                    {/*<Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>*/}
-                        {/*Apply*/}
-                    {/*</Button>*/}
-                {/*</div>*/}
-            </div>
+            </Dialog>
         );
     }
 }

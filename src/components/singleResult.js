@@ -4,9 +4,7 @@ import CONSTANTS from '../constants.js';
 import misc from '../miscfuncs/misc.js';
 import placeholder from '../images/placeholder.png';
 import TooltipMat from '@material-ui/core/Tooltip';
-import red from '@material-ui/core/colors/red';
 import DescDialog from './descDialog.js'
-import Checkbox from '@material-ui/core/Checkbox';
 import { Alert, AlertContainer } from 'react-bs-notifier';
 import Button from '@material-ui/core/Button';
 import Icon from "@material-ui/core/Icon/Icon";

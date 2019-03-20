@@ -302,8 +302,14 @@ td {
 }
 
 .maps {
-    top: 90px;
-    width: 100%!important;
+
+    margin-left: 1rem;
+    margin-right: .5rem;
+
+    /* position:fixed; */
+    /* left:75%; */
+    /* width: 200px; */
+    width: 50%!important;
     height: 100%;
     display: inline-flex;
 }
@@ -371,19 +377,6 @@ tbody:hover {
 
 .loader.results-loader h5 {
     color: black;
-}
-
-#nav-tab {
-    width: 90%;
-    text-transform: uppercase;
-    margin: auto;
-    max-width: 1300px;
-}
-
-#nav-tabContent {
-    width: 90%;
-    margin: auto;
-    max-width: 1300px;
 }
 
 .nav-tabs .nav-link {
@@ -476,7 +469,7 @@ tbody:hover {
 }
 
 .resultsName {
-    max-width: 450px;
+    /*max-width: 450px;*/
     text-align: left;
     display: grid;
     /* grid-template-columns: 1fr 4fr; */
@@ -536,7 +529,7 @@ tbody:hover {
     opacity: 1!important;
 }
 
-.fade:not(.show) {
+.extended-search-input.fade:not(.show) {
     visibility: hidden;
 }
 
@@ -544,6 +537,16 @@ tbody:hover {
     opacity: 0.5!important;
 }
 
+.results-column .fade:not(.show) {
+    display: none;
+}
+
+.itinerary.tab-pane {
+    padding-top: 2em;
+    border: 1px solid #0066d2;
+    margin-top: -4px;
+    border-top-right-radius: 3px;
+}
 
 img{
     max-width: 100%;
@@ -628,7 +631,7 @@ img{
 
 .ApiDataDisplay {
    display: grid;
-   grid-template-columns: repeat(1, 1fr);
+   /* grid-template-columns: repeat(1, 1fr); */
    grid-gap: 30px;
 }
 
@@ -672,22 +675,20 @@ button.close {
     opacity: .2;
 }
 
-
-
-
 .footer {
     border: 10px;
     font-size: 12px;
-    padding-bottom: 2em;
-    background-color: white;
+    padding: 2em 0;
+    background-color: #0066d2;
+    color: white;
+}
+
+.footer a {
+    color: white;
 }
 
 .toolbar {
     padding: 0px!important;
-}
-
-.apidata {
-    padding-bottom: 2em;
 }
 
 .modal-body {
@@ -726,19 +727,61 @@ button.close {
 }
 
 .filters-div {
-    display: grid;
-    grid-gap: 15px;
-    padding: 0 1em 0 2em;
-    position: absolute;
-    top: 90px;
-    width: 288px;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+    padding-left: 150px;
 }
 
 .filters-div > button {
-    min-width: 100px;
-    max-width: 120px;
+    height: 36px!important;
+    text-transform: none;
+    font-weight: 300!important;
+    margin-right: 18px!important;
+    color: #575757 !important;
+    border: 1px solid #ececec!important;
+
 }
 
+.filters > [class*="MuiPaper-elevation"] {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 36px 2px !important;
+}
+
+#time-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 386px;
+}
+#price-filter > [class*="MuiPaper-root"] {
+     position: fixed;
+     top: 60px;
+     left: 101px;
+}
+#meal-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 386px;
+}
+#distance-filter > [class*="MuiPaper-root"] {
+     position: fixed;
+     top: 60px;
+     left: 185px;
+}
+#api-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 291px;
+}
+
+#more-filter > [class*="MuiPaper-root"] {
+    position: fixed;
+    top: 60px;
+    left: 469px;
+}
+
+[class*="MuiSlider-track"], [class*="MuiSlider-thumb"]  {
+    background-color: #0066d2!important;
+}
 
 .activeStatebtn {
     background-color: #3f51b5!important;
@@ -759,10 +802,20 @@ button.close {
     margin: 0!important;
 }
 
+.results-column {
+    padding-top: 1em;
+    margin: 0em 1em;
+    margin-bottom: 1em;
+}
+
+.results-cont {
+    padding: 0;
+}
+
 /* itinDiv is temporary*/
 .itinDiv {
     position:relative;
-    top:90px;
+    padding: 1em;
 }
 
 .itinHeaderContainer{
@@ -808,11 +861,9 @@ button.close {
     display: grid;
     /* grid-gap: 2em; */
     width: 100%; /*70%*/
-    margin-left: 3%;
+    /* margin-left: 5%; */
     margin-right: auto;
-    max-width: 800px;
-    min-width: 620px;
-    padding-right: 8rem;
+    padding-right: .5rem;
     /* dotted line for left side of itinerary */
     padding-left: 1.5rem;
     border-left: 4px dotted #0066d2;
@@ -821,14 +872,15 @@ button.close {
 .itinSummary {
     width:100%;
     margin: auto;
-    max-width: 800px;
-    min-width: 620px;
+    /*max-width: 600px;*/
+    /*min-width: 500px;*/
 }
 
 .itinerarySumInfoContainer {
     display: inline-block;
-    width: 90.5%;
-    max-width: 800px;
+    /* width: 90.5%; */
+    /*max-width: 600px;*/
+    /*min-width: 500px;*/
     margin-left: 3.75em;
     border: 1px solid #354e72 !important;
     border-radius: 3px!important;
@@ -846,7 +898,6 @@ button.close {
   display: inline-flex;
   /* max-height: 220px;*/
   /*height: 10.25em;*/ /* consistent with showActions before height*/
-  overflow-y: hidden;
 }
 
 .itinEvenShorterDescript {
@@ -895,7 +946,6 @@ button.close {
     -ms-flex: 2;
     flex: 2;
 }
-
 
 .itinEventCol3 {
   -webkit-box-flex: 2;
@@ -973,10 +1023,11 @@ button.close {
     position: relative;
     left: -1em;
     float: left;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
     font-size: .75em;
     color: #878787;
+    text-align: left;
 }
 
 .itinCardContainerDiv { /* itineraryCard encapsulating div class*/
@@ -1044,12 +1095,12 @@ button.close {
 }
 .justify-end {
     float: right;
-    padding-right: .5em;
-    padding-bottom: .5em;
+    padding-right: .2em;
+    padding-bottom: .2em;
 }
 
 .costPanel {
-    padding: 1em;
+    margin-top: 1.2em;
 }
 
 .descBtn {
@@ -1085,14 +1136,12 @@ button.close {
 }
 
 .fixedBanner {
-    height: 50px !important;
     text-align: left;
-    position: fixed;
+    position: relative;
     z-index: 1000;
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #ececec;
-    padding: 0.4em 1.5em;
 }
 
 header {
@@ -1154,6 +1203,14 @@ input:-webkit-autofill:active {
     font-size: 0.8em;
 }
 
+#logo {
+    max-width: 126px;
+}
+
+#logo span {
+    vertical-align: bottom;
+}
+
 .nav-bar-logo2 {
     font-size: 0.8em;
 }
@@ -1194,30 +1251,26 @@ input:-webkit-autofill:active {
     width: 100%;
     font-size: 12px;
 }
-.footer ul > li:first-child {
-    margin-bottom: 1em;
-}
-.footer-2 li:nth-child(3), .footer-2 li:nth-child(4) {
-    padding-bottom: 10px;
+
+.footer ul li:first-child {
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
-.footer img {
-    max-width: 50%;
-}
-
-.yelp-item img {
-    margin-top: 8px;
-    max-width: 42%;
+.footer-content {
+    width: 80%;
+    margin: auto;
 }
 .hover-item {
+    color: white;
     transition: 500ms;
 }
 .hover-item:hover {
     transform: scale(1.2);
 }
 
-.footer li {
-    font-size: 1.2em;
+.social-icons:first-child {
+    display: block;
 }
 
 .social-icons li {
@@ -1233,36 +1286,54 @@ input:-webkit-autofill:active {
     margin-bottom: 0px!important;
 }
 
-.mapAndResultsDiv {
-    position: fixed;
-    top: 500px;
-    width: calc(100% / 3);
-}
 
 .wrapper {
     display: flex;
     justify-content: space-between;
 }
 
-.main {
-    width: calc(100%/ (7/12));
+.scroll-column {
+    height: 100%!important;
+    overflow-y: scroll;
+}
+
+.row-height {
     height: 100vh;
-    margin-left: 288px;
+}
+
+[class*="MuiBackdrop-root"] {
+    background-color: #ffffff99!important;
+    margin-top: 108px;
 }
 
 .sidebar {
-    width: calc(100%/ (5/12));
-    /* height: 50vh; */
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
 }
 
 .mapAndResults {
     height: 100vh;
     overflow-y: auto;
-    position: absolute;
-    top: 100px;
+    width: 50%;
+    /* position: absolute; */
+    /* top: 100px; */
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+    -ms-overflow-style: none !important;
+}
+
+#mapBoxID {
+    padding: 0px;
+    margin: 0px;
+}
+
+#mapBoxID > div {
+    width: 100%!important;
+    height: 100%!important;
 }
 
 .mapboxgl-marker {
@@ -1275,9 +1346,11 @@ input:-webkit-autofill:active {
 
 .price-slider {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-gap: 10px;
     align-items: center;
+    text-align: center;
+    color: #000000de!important;
 }
 
 .mapboxComponentContainer {
@@ -1293,7 +1366,7 @@ input:-webkit-autofill:active {
     border-radius: 3px!important;
     position: relative; /* added for the actions class so that the buttons can use position: absolute and be placed "outside" of the showActions div*/
     border: 1px solid #354e72 !important;
-    width:75%;
+    width:87.5%;
     margin :auto;
 }
 
@@ -1312,7 +1385,7 @@ input:-webkit-autofill:active {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5em 1.5em;
+    padding: 0.8em 1.5em;
     padding-bottom: .1em;
     display: inline-flex;
     overflow-y: hidden;
@@ -1320,7 +1393,7 @@ input:-webkit-autofill:active {
 
 .resultsImgContainer {
     width: 100%;
-    height: 50px;
+    height: 125px;
     overflow: hidden;
     position: relative;
 }
@@ -1356,6 +1429,7 @@ input:-webkit-autofill:active {
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    padding: 1em;
     padding-left: 1.5em;
     display: inline-flex;
 }
@@ -1394,4 +1468,173 @@ input:-webkit-autofill:active {
     text-align: right;
     width: 100%;
     padding-bottom: 10px;
+}
+
+.filters-modal > div {
+    height: 100vh;
+    width: 100%;
+}
+
+.tabs {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 100%;
+    font-weight: 300;
+    font-size: 1.25em;
+}
+
+/* Nav */
+.tabs nav {
+    text-align: center;
+}
+
+.tabs nav ul {
+    position: relative;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1200px;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    -ms-box-pack: center;
+    -webkit-flex-flow: row wrap;
+    -moz-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+}
+
+.tabs nav ul li {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin: 0;
+    text-align: center;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.tabs nav a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2.5;
+}
+
+.tabs nav a span {
+    vertical-align: middle;
+    font-size: 0.75em;
+}
+
+.tabs nav li.tab-current a {
+    color: #74777b;
+}
+
+.tabs nav a:focus {
+    outline: none;
+}
+
+.tabs-style-tzoid {
+    max-width: 1200px;
+}
+
+.tabs-style-tzoid nav ul li {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: 50%;
+}
+
+.tabs-style-tzoid nav ul li a {
+    padding: 0 1.5em 0 0.3em;
+    color: #fff;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+@media screen and (max-width: 54em) {
+    .tabs-style-tzoid nav ul li a {
+        padding: 0 0.5em 0 0.3em;
+    }
+}
+
+.tabs-style-tzoid nav ul li a:hover,
+.tabs-style-tzoid nav ul li a:focus {
+    color: #fff;
+}
+
+.tabs-style-tzoid nav ul li.tab-current a,
+.tabs-style-tzoid nav ul li.tab-current a:hover {
+    color: #2CC185;
+}
+
+.tabs-style-tzoid nav ul li a {
+    font-weight: 500;
+    font-size: 0.75em;
+}
+
+.tabs-style-tzoid nav ul li a::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    outline: 1px solid transparent;
+    border-radius: 10px 10px 0 0;
+    background: #0066d2;
+    box-shadow: inset 0 -3px 3px rgba(0,0,0,0.05);
+    content: '';
+    -webkit-transform: perspective(5px) rotateX(0.93deg) translateZ(-1px);
+    transform: perspective(5px) rotateX(0.93deg) translateZ(-1px);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.tabs-style-tzoid nav ul li a.active {
+    color: #0066d2;
+}
+
+.tabs-style-tzoid nav ul li a.active::after {
+    background: white;
+    border: 1px solid #0066d2;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.tabs-style-tzoid nav ul li.tab-current a::after,
+.tabs-style-tzoid .content-wrap .active {
+    background: #fff;
+    box-shadow: none;
+}
+
+.apply-btn {
+    color: #0066d2!important;
+}
+
+.rc-slider-handle, .rc-slider-track {
+    color: #0066d2!important;
+    border: solid 1px #0066d2!important;
+    background-color: #0066d2!important;
+}
+.rc-slider-handle {
+    width: 13px!important;
+    height: 13px!important;
+}
+
+.rc-slider-rail, .rc-slider-track {
+    height: 2px!important;
 }

@@ -55,7 +55,7 @@ class MiniItineraryCard extends Component {
                                 </div>
                             </div>
 
-                                <div className="costPanel">
+                                <div>
                                         <strong>${cost}</strong>
                                 </div>
                             <div className="mini-justify-end">

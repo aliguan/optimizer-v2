@@ -21,28 +21,23 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import '../maps.css';
-import EmailModal from './emailModal.js';
 import Footer from './footer.js';
 import TooltipMat from '@material-ui/core/Tooltip';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import DistanceFilter from './distanceFilter.js';
-import ApiFilter from './apiFilter.js';
-import TimeFilter from './timeFilter.js';
-import PriceFilter from './priceFilter.js';
-import MealFilter from './mealFilter.js';
 import yelp_logo from '../images/yelp_burst.png';
 import google_logo from '../images/google_places.png';
 import meetup_logo from '../images/meetup_logo.png';
 import eventbrite_logo from '../images/eventbrite_logo.png';
 import seatgeek_logo from '../images/seatgeek_logo.png';
-
+import AllFilters from './allFilters';
 
 import CONSTANTS from '../constants.js';
 import DescDialog from './descDialog.js'
 import LocationErrorDialog from './locationErrorDialog.js'
 import Icon from "@material-ui/core/Icon/Icon";
+import EmailModal from "./emailModal";
 
 //https://developers.google.com/maps/documentation/geocoding/usage-and-billing
 //0-100k queries = $5 per 1k queries
@@ -111,6 +106,9 @@ class Userinput extends Component {
             //mouse click
             clickedDiv: '',
             searchInputWidth: 0,
+
+            //Filters
+            openFilters: false,
         };
         this.apiService = new ApiService();
         this.handleChange = this.handleChange.bind(this);
@@ -152,7 +150,6 @@ class Userinput extends Component {
         this.updateDimensions = this.updateDimensions.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
         this.handleToggleItinerary = this.handleToggleItinerary.bind(this);
-
         //global variables
         this.locationCheckResult = 0; // only set by misc.checkIfValidLocation function,
                                       // 0 = valid location, 1 = invalid location (outside of supported countries), 2 = invalid location input
@@ -162,7 +159,6 @@ class Userinput extends Component {
     updateDimensions() {
         var width = this.searchIconNode.clientWidth + this.searchInputNode.clientWidth;
         this.setState({searchInputWidth: width});
-        console.log(this.state.resultsArray);
     }
 
     handleToggleItinerary() {
@@ -170,7 +166,8 @@ class Userinput extends Component {
         console.log("handletoggleitin")
         this.setState({
             showDetailedItinerary: !this.state.showDetailedItinerary,
-        })
+        });
+
     }
 
     //listens to click on search input on fixed nav
@@ -1582,6 +1579,7 @@ class Userinput extends Component {
         this.setState({ mapOrResultsState: 'maps' })
     }
 
+
     handleClickDescOpen(e) {
         var button_id = e.target.id;
         var eventNum = button_id.substr(button_id.length - 1);
@@ -1608,7 +1606,10 @@ class Userinput extends Component {
         window.addEventListener("resize", this.updateDimensions);
 
         var homepageClasses = this.state.homepageFormClasses;
-        homepageClasses.push('show');
+        if(homepageClasses.indexOf('show') === -1) {
+            homepageClasses.push('show');
+        }
+
         this.setState({
             homepageFormClasses: homepageClasses,
         });
@@ -1622,14 +1623,6 @@ class Userinput extends Component {
     }
 
     render() {
-        // Map
-        const mapClasses = ['maps', 'hidden'];
-
-        if (this.state.mapOrResultsState === 'maps') {
-            if (this.state.resultsArray.length > 0) {
-                mapClasses.pop();
-            }
-        };
         // console.log("userinput render function!")
         var formStyles = ['form-body'];
         var optionStyles = ['more-options', 'form-body'];
@@ -1875,18 +1868,23 @@ class Userinput extends Component {
 
 
             var numPages = Math.floor(filteredEventObj.numFilteredEvents / CONSTANTS.NUM_RESULTS_PER_PAGE) + 1;
-            pages.push("<");
 
-            for (i = 0; i < numPages; i++) {
-                pageNumber = i + 1;
-                if (this.state.pageNumber !== pageNumber) {
-                    pages.push(<PaginationLink key={"pg" + pageNumber} pageNumber={pageNumber} onPageLinkClick={this.handleEventPageClick} />);
+            if(!filteredEventObj.numFilteredEvents ) {
+                pages.push('No results found. Please search again.');
+            } else {
+                pages.push("<");
+
+                for (i = 0; i < numPages; i++) {
+                    pageNumber = i + 1;
+                    if (this.state.pageNumber !== pageNumber) {
+                        pages.push(<PaginationLink key={"pg" + pageNumber} pageNumber={pageNumber} onPageLinkClick={this.handleEventPageClick} />);
+                    }
+                    else {
+                        pages.push(pageNumber);
+                    }
                 }
-                else {
-                    pages.push(pageNumber);
-                }
+                pages.push(">");
             }
-            pages.push(">");
         }
 
         var eventsMultiResults = [];
@@ -1904,18 +1902,23 @@ class Userinput extends Component {
                 this.state.filterRadius);
 
             var numPages = Math.floor(filteredFoodObj.numFilteredFoodPlaces / CONSTANTS.NUM_RESULTS_PER_PAGE) + 1;
-            foodPages.push("<");
 
-            for (i = 0; i < numPages; i++) {
-                foodPageNumber = i + 1;
-                if (this.state.foodPageNumber !== foodPageNumber) {
-                    foodPages.push(<PaginationLink key={"pg" + foodPageNumber} pageNumber={foodPageNumber} onPageLinkClick={this.handleFoodPageClick} />);
+            if(!filteredFoodObj.numFilteredFoodPlaces) {
+                foodPages.push('No results found. Please search again.');
+            } else {
+                foodPages.push("<");
+                for (i = 0; i < numPages; i++) {
+                    foodPageNumber = i + 1;
+                    if (this.state.foodPageNumber !== foodPageNumber) {
+                        foodPages.push(<PaginationLink key={"pg" + foodPageNumber} pageNumber={foodPageNumber} onPageLinkClick={this.handleFoodPageClick} />);
+                    }
+                    else {
+                        foodPages.push(foodPageNumber);
+                    }
                 }
-                else {
-                    foodPages.push(foodPageNumber);
-                }
+                foodPages.push(">");
             }
-            foodPages.push(">");
+
         }
 
         var foodMultiResults = [];
@@ -1955,7 +1958,7 @@ class Userinput extends Component {
         const { classes, theme } = this.props;
 
         // Handling itinerary div width when results presented
-        var itinContent = ['main', 'mapsfix', 'itinerary'];
+        var itinContent = ['main', 'mapsfix', 'itinerary','col-md-4'];
         // if (this.state.resultsArray.length > 0) { //if there are itinerary results set the div width to 8 columns
         //     itinContent.push('col-md-7');
         // }
@@ -1969,15 +1972,11 @@ class Userinput extends Component {
             banner.push('fixedBanner');
         }
 
-        // Handle switching views between the results and the map
-        var mapAndResultsContent = ['mapAndResults', 'clearfix', 'hidden'];
-        if (this.state.mapOrResultsState.localeCompare('results') === 0 && this.state.resultsArray.length > 0) {
-            mapAndResultsContent.pop();
-        }
+        var mapAndResultsContent = ['mapAndResults', 'clearfix'];
 
         // Itinerary div css classes
         var onlyItin = ['itinDiv', 'clearfix'];
-        var mapAndResultsDiv = ['clearfix', 'mapAndResultsDiv', 'sidebar', 'hidden'];
+        var mapAndResultsDiv = ['clearfix', 'mapAndResultsDiv', 'sidebar','col-md-4', 'hidden'];
         if (this.state.resultsArray.length > 0) {
             mapAndResultsDiv.pop();
         } else {
@@ -1988,12 +1987,12 @@ class Userinput extends Component {
         var genericTabsClass = ['itinerary', 'tab-pane', 'fade'];
         var eventsTabsClass = genericTabsClass.slice();
         var restaurantsTabsClass = genericTabsClass.slice();
-        var moreOptionsTabsClass = genericTabsClass.slice();
+        //var moreOptionsTabsClass = genericTabsClass.slice();
 
         var genericLinkClass = ['nav-item', 'nav-link'];
         var eventsLinkClass = genericLinkClass.slice();
         var restaurantsLinkClass = genericLinkClass.slice();
-        var moreOptionsLinkClass = genericLinkClass.slice();
+        //var moreOptionsLinkClass = genericLinkClass.slice();
 
         if (this.state.tabState.localeCompare(CONSTANTS.NAV_EVENT_TAB_ID) === 0) {
             eventsTabsClass.push('show');
@@ -2006,9 +2005,9 @@ class Userinput extends Component {
             restaurantsLinkClass.push('active');
         }
         else {
-            moreOptionsTabsClass.push('show');
-            moreOptionsTabsClass.push('active');
-            moreOptionsLinkClass.push('active');
+            // moreOptionsTabsClass.push('show');
+            // moreOptionsTabsClass.push('active');
+            // moreOptionsLinkClass.push('active');
         }
 
         //Home Page Form -- revisit
@@ -2075,13 +2074,6 @@ class Userinput extends Component {
                                                   <input /*required*/ className="fixedTextInput homepageInputs" min="0" type="number" name="budgetmax" placeholder="$1000" /*value={budgetmax}*/ onChange={this.handleChange} />
                                               </TooltipMat>
                                           </div>
-                                          <div className="form-group mb-2">
-                                              <label className="inputLabel" htmlFor="searchRadius">{CONSTANTS.HEADER_RADIUS_STR}</label>
-                                              <div className="homepageIcon">
-                                                  <Icon>360</Icon>
-                                              </div>
-                                              <input /*required*/ className="fixedTextInput homepageInputs" type="number" min="0" name="searchRadius" /*value={50}*/ onChange={this.handleSearchRadius} placeholder="Search Radius (mi)" />
-                                          </div>
                                       </div>
                                       <div className="search-btn">
                                           <TooltipMat placement="bottom" title={CONSTANTS.GO_TOOLTIP_STR}>
@@ -2096,7 +2088,7 @@ class Userinput extends Component {
                   </AppBar>
                       :
                   <div className="row topNavBar fixedNav">
-                      <div className="col-md-2">
+                      <div ref={node => this.logoNode = node} id="logo" className="col-md-2">
                           <span className="nav-bar-logo">Blue </span>
                           <span className="nav-bar-logo2">Planit</span>
                           {locationErrorMessage}
@@ -2163,17 +2155,6 @@ class Userinput extends Component {
                                                                   onChange={this.handleChange}/>
                                           </TooltipMat>
                                       </div>
-                                      <div className="form-group mb-2">
-                                          <label className="inputLabel"
-                                                 htmlFor="searchRadius">{CONSTANTS.HEADER_RADIUS_STR}</label>
-                                          <div className="homepageIcon">
-                                              <Icon>360</Icon>
-                                          </div>
-                                          <input /*required*/ className="fixedTextInput homepageInputs" type="number"
-                                                              min="0" name="searchRadius" /*value={50}*/
-                                                              onChange={this.handleSearchRadius}
-                                                              placeholder="Search Radius (mi)"/>
-                                      </div>
                                   </div>
                                   <div className="search-btn">
                                       <TooltipMat placement="bottom" title={CONSTANTS.GO_TOOLTIP_STR}>
@@ -2186,29 +2167,31 @@ class Userinput extends Component {
                           </form>
 
                       </div>
-                      {this.state.resultsArray.length > 0 ?
-                          <div className="col-md-4 mapAndResultsActions" key="toggleItin">
-                              <Button onClick={this.handleShowItin} variant="outlined" color="primary" >Results</Button>
-                              <Button onClick={this.handleShowMap} variant="outlined" color="primary" >Map</Button>
-                          </div> : ''
-                      }
                   </div>
               }
           </div>
           {this.state.resultsArray.length > 0 ?
               <div className="content-parent-div clearfix">
-                  <div className="wrapper eventsCont apidata">
-                      <div className="filters-div">
-                          <PriceFilter setPriceRange={this.handlePriceFilter}></PriceFilter>
-                          <DistanceFilter maxDistance={this.state.searchRadiusForFilterCompare}
-                                          setDistance={this.handleFilterRadius}></DistanceFilter>
-                          <ApiFilter setApiFilterFlags={this.handleApiFilter}></ApiFilter>
-                          {this.state.tabState == CONSTANTS.NAV_EVENT_TAB_ID ?
-                              <TimeFilter setTimeRange={this.handleTimeFilter}></TimeFilter> :
-                              <MealFilter setMealFilterFlags={this.handleMealFilter}></MealFilter>}
-
+                  <div className="row">
+                      <div className="col-md-12">
+                          <AllFilters
+                              handlePriceFilter={this.handlePriceFilter}
+                              searchRadiusForFilterCompare={this.state.searchRadiusForFilterCompare}
+                              setDistance={this.handleFilterRadius}
+                              handleApiFilter={this.handleApiFilter}
+                              tabState={this.state.tabState}
+                              handleTimeFilter={this.handleTimeFilter}
+                              handleMealFilter={this.handleMealFilter}
+                              handleUpdateUserFoodCost={this.handleUpdateUserFoodCost}
+                              handleUpdateUserEventCost={this.handleUpdateUserEventCost}
+                              handleUpdateEventTypeSearch={this.handleUpdateEventTypeSearch}
+                              userFoodCost={this.state.userFoodCost}
+                              userEventCost={this.state.userEventCost}
+                          />
                       </div>
-                      <main className={itinContent.join(' ')}>
+                  </div>
+                  <div className="row row-height wrapper eventsCont apidata">
+                      <main className="col-md-5 scroll-column">
                           <div>
                               {this.state.loading === true ?
                                   ' ' :
@@ -2234,19 +2217,33 @@ class Userinput extends Component {
                               <h5>Planning your trip...</h5>
                           </div> : false
                       }
-                      <div className={mapAndResultsDiv.join(' ')}>
-                          <div className={mapAndResultsContent.join(' ')}>
+                      <div className="col-md-4 scroll-column results-cont">
+                          <div className="results-column">
                                     {/* All data gets shown here (api data, a nd user added data) */}
-                                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a onClick={this.handleTabState} className={eventsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_EVENT_TAB_ID} data-toggle="tab" href="#nav-events" role="tab"
-                                            aria-controls="nav-events" aria-selected="true">Events and Places</a>
-                                        <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_FOOD_TAB_ID} data-toggle="tab" href="#nav-food" role="tab"
-                                            aria-controls="nav-food" aria-selected="false"> Restaurants</a>
-                                        <a onClick={this.handleTabState} className={moreOptionsLinkClass.join(' ')}
-                                            id={CONSTANTS.NAV_MOREOPTIONS_TAB_ID} data-toggle="tab" href="#nav-moreoptions"
-                                            role="tab" aria-controls="nav-moreoptions" aria-selected="false"> More Options</a>
+                                    <div className="tabs tabs-style-tzoid">
+                                        <nav id="nav-tab" role="tablist">
+                                            <ul>
+                                                <li>
+                                                    <a onClick={this.handleTabState} className={eventsLinkClass.join(' ')}
+                                                        id={CONSTANTS.NAV_EVENT_TAB_ID} data-toggle="tab" href="#nav-events" role="tab"
+                                                        aria-controls="nav-events" aria-selected="true">Events and Places
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a onClick={this.handleTabState} className={restaurantsLinkClass.join(' ')}
+                                                        id={CONSTANTS.NAV_FOOD_TAB_ID} data-toggle="tab" href="#nav-food" role="tab"
+                                                        aria-controls="nav-food" aria-selected="false">
+                                                        Restaurants
+                                                    </a>
+                                                </li>
+                                                {/*<li>*/}
+                                                    {/*<a onClick={this.handleTabState} className={moreOptionsLinkClass.join(' ')}*/}
+                                                       {/*id={CONSTANTS.NAV_MOREOPTIONS_TAB_ID} data-toggle="tab" href="#nav-moreoptions"*/}
+                                                       {/*role="tab" aria-controls="nav-moreoptions" aria-selected="false"> More Options*/}
+                                                    {/*</a>*/}
+                                                {/*</li>*/}
+                                            </ul>
+                                        </nav>
                                     </div>
                                     <div className={eventsTabsClass.join(' ')} id="nav-events" role="tabpanel"
                                         aria-labelledby="nav-options-tab">
@@ -2263,7 +2260,7 @@ class Userinput extends Component {
                                             maxRadius={this.state.searchRadiusForFilterCompare}
                                             tabState={this.state.tabState}
                                             userEventCost={this.state.userEventCost} />}
-                                        {pages}
+                                        <p>{pages}</p>
 
                                     </div>
 
@@ -2281,36 +2278,29 @@ class Userinput extends Component {
                                             maxRadius={this.state.searchRadiusForFilterCompare}
                                             tabState={this.state.tabState}
                                             userEventCost={this.state.userEventCost} />}
-                                        {foodPages}
+                                        <p>{foodPages}</p>
                                     </div>
 
 
-                                    <div className={moreOptionsTabsClass.join(' ')} id="nav-moreoptions" role="tabpanel"
-                                        aria-labelledby="nav-moreoptions-tab">
-                                        {<MoreOptions updateUserFoodCost={this.handleUpdateUserFoodCost}
-                                            updateUserEventCost={this.handleUpdateUserEventCost}
-                                            updateEventTypeSearch={this.handleUpdateEventTypeSearch}
-                                            currentFoodCost={this.state.userFoodCost}
-                                            currentEventCost={this.state.userEventCost} />}
-                                    </div>
+                                    {/*<div className={moreOptionsTabsClass.join(' ')} id="nav-moreoptions" role="tabpanel"*/}
+                                        {/*aria-labelledby="nav-moreoptions-tab">*/}
+                                    {/*</div>*/}
                                 </div>
-                          <div id="mapBoxID" className={mapClasses.join(' ')} >
-                                <MapBoxComponent show={this.state.mapOrResultsState}
-                                                 results={this.state.resultsArray}
-                                                 center={this.state.center}
-                                                 markerHoverStates={this.state.mapItinCardHoverStates}>
-                                </MapBoxComponent>
-                          </div>
                                 {/* { <GoogleApiWrapper show={this.state.mapOrResultsState} results={this.state.resultsArray}
                                             center={this.state.center} showMarkerOnHoverObj={this.state.mapItinCardHoverStates}/> } */}
                             </div>
+                            <div id="mapBoxID" className="col-md-3 scroll-column">
+                                  <MapBoxComponent show={this.state.mapOrResultsState}
+                                                   results={this.state.resultsArray}
+                                                   center={this.state.center}
+                                                   markerHoverStates={this.state.mapItinCardHoverStates}>
+                                  </MapBoxComponent>
+                            </div>
                         </div>
-                    </div>
-                    : false}
-                <div>
-                    {/*{<Footer />}*/}
-                </div>
 
+                    <Footer/>
+              </div>
+                : false }
             </div>
 
         )

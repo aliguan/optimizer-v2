@@ -23,7 +23,6 @@ class ItinerarySummary extends Component {
         this.emailModal.openModal();
     }
 
-
     render() {
         var totalCostDisplayed = this.props.totalCostDisplayed;
         var message = this.props.message;
@@ -67,7 +66,7 @@ class ItinerarySummary extends Component {
                 <div className="detailedItinButton">
                 
                 <Button onClick={this.props.handleToggleItinerary}>
-                {this.props.showDetailedItinerary ? 
+                {this.props.showDetailedItinerary ?
                     <TooltipMat placement="bottom" title={CONSTANTS.COLLAPSE_TO_MINI_ITIN_DIPLAY_STR}>
                         <Icon>expand_less</Icon>
                     </TooltipMat> 

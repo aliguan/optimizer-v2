@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {Modal, Button, FormControl} from 'react-bootstrap';
+import {Modal, FormControl} from 'react-bootstrap';
 import emailService from './emailService.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Loader from './reactloading.js';
+import Button from '@material-ui/core/Button';
 
 class EmailModal extends Component {
 
@@ -14,6 +15,7 @@ class EmailModal extends Component {
             modalIsOpen: false,
             email: '',
             loading:  false,
+            snackbar_show: false,
         };
         this.emailService = new emailService();
         this.openModal = this.openModal.bind(this);
@@ -75,7 +77,8 @@ class EmailModal extends Component {
             this.emailService.sendEmail(data).then((sent) => {
                 this.setState({ loading: false });
                 if(sent.status == 200) {
-                    alert('email sent');
+                    alert(sent.data);
+                   // <SimpleSnackbar open={this.state.snackbar_show} handleClose={this.handleClose}/>
                 } else {
                     alert('email could not be sent');
                 };
@@ -108,7 +111,7 @@ class EmailModal extends Component {
                        placeholder="Please enter your e-mail"
                        onChange={this.handleChange}
                     />
-                <Button className="btn btn-info" onClick={this.handleEmail}>Send Email</Button>
+                <Button variant="contained" color="primary" className="btn btn-sm go-btn" onClick={this.handleEmail}>Send Email</Button>
                </Modal.Body>
             }
 

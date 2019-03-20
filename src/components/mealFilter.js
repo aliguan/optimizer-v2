@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import grey from '@material-ui/core/colors/grey';
-import globalStyles from '../App.css';
-import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 
 const styles = theme => ({
     root: {
@@ -24,7 +23,18 @@ const styles = theme => ({
         width: '25%',
         padding: '1em',
         'z-index': 9999
-    }
+    },
+    colorSwitchBase: {
+        color: '#0066d2',
+        '&$colorChecked': {
+            color: '#0066d2',
+            '& + $colorBar': {
+                backgroundColor: '#0066d2',
+            },
+        },
+    },
+    colorBar: {color: '#0066d2',},
+    colorChecked: {color: '#0066d2',},
 });
 
 class MealFilter extends React.Component {
@@ -35,6 +45,18 @@ class MealFilter extends React.Component {
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
+
+    state = {
+        value: false,
+        breakfast: true,
+        lunch: true,
+        dinner: true,
+        all: true,
+        prevBreakfast: true,
+        prevLunch: true,
+        prevDinner: true,
+        prevAll: true,
+    };
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -48,27 +70,17 @@ class MealFilter extends React.Component {
         this.wrapperRef = node;
     }
 
-    /**
-     * Alert if clicked on outside of element
-     */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ open: false });
+            this.setState({
+                breakfast: this.state.prevBreakfast,
+                lunch: this.state.prevLunch,
+                dinner: this.state.prevDinner,
+                all: this.state.prevAll,
+            });
+            this.props.close();
         }
     }
-
-    state = {
-        open: false,
-        value: false,
-        breakfast: true,
-        lunch: true,
-        dinner: true,
-        all: true,
-        prevBreakfast: true,
-        prevLunch: true,
-        prevDinner: true,
-        prevAll: true,
-    };
 
     handleClick = (filter_state) => {
         var objectState = {};
@@ -76,18 +88,6 @@ class MealFilter extends React.Component {
         objectState[filter_state] = !currentState;
         this.setState(objectState);
     };
-
-    handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({
-                open: false,
-                breakfast: this.state.prevBreakfast,
-                lunch: this.state.prevLunch,
-                dinner: this.state.prevDinner,
-                all: this.state.prevAll,
-            });
-        }
-    }
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked }, function () {
@@ -98,7 +98,6 @@ class MealFilter extends React.Component {
             }
         });
     };
-
 
     handleAllChange = name => event => {
         this.setState({ [name]: event.target.checked }, function () {
@@ -136,18 +135,16 @@ class MealFilter extends React.Component {
             prevLunch: this.state.lunch,
             prevDinner: this.state.dinner,
             prevAll: this.state.all,
-        })
+        });
+        this.props.close();
     };
 
     render() {
         const { classes } = this.props;
-        const { open } = this.state
-        const { value } = this.state;
+
         var disabled = this.props.resultsPresent;
 
         var buttonClasses = ['apiBtn'];
-
-        this.state.value != 0 ? buttonClasses.push('activeStatebtn') : buttonClasses = ['apiBtn'];
 
         if (this.props.apiCalls) {
             this.props.handleResetFilter();
@@ -167,60 +164,92 @@ class MealFilter extends React.Component {
         }
 
         return (
-            <div ref={this.setWrapperRef}>
-                <Typography id="label">Include restaurants for: </Typography>
-                <FormControl component="fieldset">
-                    <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={this.state.all}
-                                    onChange={this.handleAllChange('all')}
-                                    value="all"
-                                    color="primary"
-                                />
-                            }
-                            label="Select All"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={this.state.breakfast}
-                                    onChange={this.handleChange('breakfast')}
-                                    value="breakfast"
-                                    color="primary"
-                                />
-                            }
-                            label="Breakfast"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={this.state.lunch}
-                                    onChange={this.handleChange('lunch')}
-                                    value="lunch"
-                                    color="primary"
-                                />
-                            }
-                            label="Lunch"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={this.state.dinner}
-                                    onChange={this.handleChange('dinner')}
-                                    value="dinner"
-                                    color="primary"
-                                />
-                            }
-                            label="Dinner"
-                        />
-                    </FormGroup>
-                </FormControl>
-                <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
-                    Apply
-                </Button>
-            </div>
+            <Dialog
+                open={this.props.open}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="filters"
+                id="meal-filter"
+            >
+                <div ref={this.setWrapperRef}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            <div>
+                                <Typography id="label">Include restaurants for: </Typography>
+                                <FormControl component="fieldset">
+                                    <FormGroup>
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.all}
+                                                    onChange={this.handleAllChange('all')}
+                                                    value="all"
+                                                    classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
+                                                />
+                                            }
+                                            label="Select All"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.breakfast}
+                                                    onChange={this.handleChange('breakfast')}
+                                                    value="breakfast"
+                                                    classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
+                                                />
+                                            }
+                                            label="Breakfast"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.lunch}
+                                                    onChange={this.handleChange('lunch')}
+                                                    value="lunch"
+                                                    classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
+                                                />
+                                            }
+                                            label="Lunch"
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={this.state.dinner}
+                                                    onChange={this.handleChange('dinner')}
+                                                    value="dinner"
+                                                    classes={{
+                                                        switchBase: classes.colorSwitchBase,
+                                                        checked: classes.colorChecked,
+                                                        bar: classes.colorBar,
+                                                    }}
+                                                />
+                                            }
+                                            label="Dinner"
+                                        />
+                                    </FormGroup>
+                                </FormControl>
+                            </div>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button className="apply-btn" onClick={this.handleApply}>
+                            Apply
+                        </Button>
+                    </DialogActions>
+                </div>
+            </Dialog>
         );
     }
 }

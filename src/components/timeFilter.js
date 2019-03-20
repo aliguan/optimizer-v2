@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CONSTANTS from '../constants';
 import 'rc-slider/assets/index.css';
 
 import Slider from 'rc-slider';
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText/DialogContentText";
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
@@ -24,32 +25,39 @@ const styles = theme => ({
         maxWidth: '320px',
         padding: '1em 2em',
         textAlign: 'left',
-
     },
     slider: {
         zIndex: '9999',
     },
     header: {
-        marginBottom: '2em',
-        fontSize: '1em',
+        marginTop: '1em',
+        textAlign: 'center',
+        fontSize: '16px'
     },
     span: {
-        float: 'right',
-        color: CONSTANTS.PRIMARY_COLOR,
+        color: '#000000de',
+        margin: '10px',
     },
     actions: {
         marginTop: '2em',
         fontSize: '0.9em',
+        width: '100%'
     },
     apply: {
         float: 'right',
+        color: CONSTANTS.PRIMARY_COLOR,
     },
     clear: {
         float: 'left',
-    }
+        color: CONSTANTS.PRIMARY_COLOR,
+    },
+    content: {
+        paddingBottom: '0px',
+        minWidth: '220px',
+    },
 });
 
-class TimeSlider extends React.Component {
+class TimeFilter extends React.Component {
 
     constructor(props) {
         super(props);
@@ -59,7 +67,6 @@ class TimeSlider extends React.Component {
     }
 
     state = {
-        open: false,
         min: CONSTANTS.ABS_TIMEFILTER_MIN,
         max: CONSTANTS.ABS_TIMEFILTER_MAX,
         value: [CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX],
@@ -80,22 +87,16 @@ class TimeSlider extends React.Component {
         this.wrapperRef = node;
     }
 
-    /**
-     * Alert if clicked on outside of element
-     */
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.setState({ 
-                open: false, 
-                value: [this.state.prevMin, this.state.prevMax],
-            },this.setTimeRange);
+            this.props.close();
         }
     }
 
     onSliderChange = (value) => {
         this.setState({
             value: value,
-        }, this.setTimeRange)
+        }, this.setTimeRange);
     }
 
     setTimeRange = () => {
@@ -151,7 +152,8 @@ class TimeSlider extends React.Component {
             value: [this.state.value[0], this.state.value[1]],
             prevMin: this.state.value[0],
             prevMax: this.state.value[1],
-        })
+        });
+        this.props.close();
     };
 
     handleClear = (props) => {
@@ -197,31 +199,46 @@ class TimeSlider extends React.Component {
         }
 
         return (
-            <div ref={this.setWrapperRef}>
-                <Typography className={classes.header}>Time <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
-                <Range allowCross={false}  value={this.state.value} className={classes.slider}
-                    defaultValue={[CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX]}
-                    min={this.state.min} max={this.state.max}
-                    step={CONSTANTS.TIME_FILTER_STEP}
-                    onChange={this.onSliderChange}
-                    tipFormatter={this.handleDisplay}
-                />
-
-                <div className={classes.actions}>
-                    <Button href="#text-buttons" className={classes.button} onClick={this.handleClear}>
-                        Clear
-                    </Button>
-                    <Button href="#text-buttons" className={classes.button} onClick={this.handleApply}>
-                        Apply
-                    </Button>
-                </div>
+            <Dialog
+                open={this.props.open}
+                id="time-filter"
+                className="filters"
+            >
+             <div ref={this.setWrapperRef}>
+                <DialogContent className={classes.content}>
+                    <DialogContentText>
+                        <div>
+                            <Range allowCross={false}  value={this.state.value} className={classes.slider}
+                                defaultValue={[CONSTANTS.DEFAULT_TIMEFILTER_MIN, CONSTANTS.DEFAULT_TIMEFILTER_MAX]}
+                                min={this.state.min} max={this.state.max}
+                                step={CONSTANTS.TIME_FILTER_STEP}
+                                onChange={this.onSliderChange}
+                                tipFormatter={this.handleDisplay}
+                            />
+                        </div>
+                        <div>
+                            <Typography className={classes.header}> <span className={classes.span}>{this.state.timeRange[0]} - {this.state.timeRange[1]}</span></Typography>
+                        </div>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <div className={classes.actions}>
+                        <Button className={classes.clear} onClick={this.handleClear}>
+                            Clear
+                        </Button>
+                        <Button className={classes.apply} onClick={this.handleApply}>
+                            Apply
+                        </Button>
+                    </div>
+                </DialogActions>
             </div>
+            </Dialog>
         );
     }
 }
 
-TimeSlider.propTypes = {
+TimeFilter.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TimeSlider);
+export default withStyles(styles)(TimeFilter);

@@ -18,6 +18,8 @@ import MapBoxPopup from './mapBoxSubComponents/mapBoxPopup';
 //     iHover: 0, //ith itinerary item to show marker info when the card is hovered over
 // },
 
+//https://www.mapbox.com/pricing/
+//webapps $0 for 50k map views/geocoding requests per month then $.5 per 1k views/requests after
 const showPopupOnHoverOnItinCards = true; //easy toggle to turn on/off showing popups when hovering mouse over itinerary cards
 
 export class MapBoxComponent extends Component {
